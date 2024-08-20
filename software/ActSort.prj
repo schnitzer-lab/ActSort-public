@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="854050181" file="/Users/orhunakengin/Desktop/Research/ActSort/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort/software" name="ActSort" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1750020339" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
     <param.appname>ActSort</param.appname>
     <param.authnamewatermark>Hakki Orhun Akengin</param.authnamewatermark>
     <param.email>akengin@stanford.edu</param.email>
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Sort and label your cells!</param.summary>
     <param.description>This app is created to sort the output cells of EXTRACT, an automated cell extraction tool for calcium imaging, which extracts the activities of cells from both one-photon and two-photon calcium imaging movies.</param.description>
-    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tpfe55e8fd_6a3e_4245_938e_dad63570a124.png</param.screenshot>
-    <param.version>1.07</param.version>
+    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tp5488447c_69be_4d4f_85c3_a14e4fb85971.png</param.screenshot>
+    <param.version>1.08</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -32,60 +32,60 @@
       <file>${PROJECT_ROOT}/CellSorter.mlapp</file>
     </fileset.main>
     <fileset.depfun>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/+al_class_package/dataset.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/+al_class_package/method.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/annotate.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/fine_tune.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/initialization.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/predict_rest.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/query_strategies/strategy_algo_rank.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/query_strategies/strategy_cal.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/query_strategies/strategy_dal.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/query_strategies/strategy_dcal.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/query_strategies/strategy_random_sampling.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/step_al.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/train_classifier.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/active_learning_codebase/utils/balance_dataset.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/experiments/utils/estimate_noise_std.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/experiments/utils/maybe_gpu.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/experiments/utils/select_indices.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/calculate_spurious_cells_metrics.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/compute_cell_epsilon.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/compute_event_metrics.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/compute_spat_corruption.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/compute_temporal_goodness.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/create_features.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/extract_events_nonexponential.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/filter_images.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/find_avg_pix_vals.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/find_cell_circumference.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/find_edge_distances.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/find_spurious_cells.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/find_temporal_features.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/find_trace_std.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/fourier_features.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/get_active_frames.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/get_areas.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/get_circularity_metrics.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/get_free_mem.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/get_tqm_metric.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/get_trace_noise.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/get_trace_snr.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/has_multiple_bodies.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/max_positive_correlation.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/ndSparse.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/normalize_to_one.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/parse_precomputed_output.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/peakseek.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/replace_infs_with_zeros.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/replace_nans_with_mean.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/smooth_images.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/spike_fluorescence.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/temporal_corruption.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/trace_estimators/eps_func.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/trace_estimators/kappa_of_epsilon.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/trace_estimators/solve_single_source_temporal.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort/feature_engineering/trace_similarity.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/+al_class_package/dataset.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/+al_class_package/method.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/annotate.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/fine_tune.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/initialization.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/predict_rest.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/query_strategies/strategy_algo_rank.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/query_strategies/strategy_cal.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/query_strategies/strategy_dal.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/query_strategies/strategy_dcal.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/query_strategies/strategy_random_sampling.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/step_al.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/train_classifier.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/utils/balance_dataset.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/calculate_spurious_cells_metrics.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_cell_epsilon.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_event_metrics.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_spat_corruption.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_temporal_goodness.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/create_features.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/estimate_noise_std.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/extract_events_nonexponential.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/filter_images.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_avg_pix_vals.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_cell_circumference.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_edge_distances.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_spurious_cells.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_temporal_features.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_trace_std.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/fourier_features.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_active_frames.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_areas.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_circularity_metrics.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_free_mem.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_tqm_metric.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_trace_noise.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_trace_snr.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/has_multiple_bodies.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/max_positive_correlation.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/maybe_gpu.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/ndSparse.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/normalize_to_one.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/parse_precomputed_output.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/peakseek.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/replace_infs_with_zeros.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/replace_nans_with_mean.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/select_indices.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/smooth_images.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/spike_fluorescence.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/temporal_corruption.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_estimators/eps_func.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_estimators/kappa_of_epsilon.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_estimators/solve_single_source_temporal.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_similarity.m</file>
       <file>${PROJECT_ROOT}/ActSort_resources/icon-fa-hand-pointer-o.png</file>
       <file>${PROJECT_ROOT}/ActSort_resources/icon-mat-select-all.png</file>
       <file>${PROJECT_ROOT}/ActSort_resources/icon-mat-zoom-in.png</file>
@@ -124,18 +124,16 @@
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/set_trace_event_interval.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/update_neighbor_boundaries.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/update_progress.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/AL/update_model.m</file>
       <file>${PROJECT_ROOT}/helper_functions/adjust_constrast_value.m</file>
       <file>${PROJECT_ROOT}/helper_functions/brewermap.m</file>
       <file>${PROJECT_ROOT}/helper_functions/calculate_zoom_limits.m</file>
+      <file>${PROJECT_ROOT}/helper_functions/classes/config.m</file>
+      <file>${PROJECT_ROOT}/helper_functions/classes/session.m</file>
       <file>${PROJECT_ROOT}/helper_functions/clear_axes.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/config.m</file>
       <file>${PROJECT_ROOT}/helper_functions/create_alpha_mask.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/create_custom_patch.m</file>
       <file>${PROJECT_ROOT}/helper_functions/create_info_struct.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/delete_existing_patch.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/display_summary_snapshots.m</file>
       <file>${PROJECT_ROOT}/helper_functions/draw_snapshot_boundaries.m</file>
+      <file>${PROJECT_ROOT}/helper_functions/draw_snapshot_neighbor_boundaries.m</file>
       <file>${PROJECT_ROOT}/helper_functions/find_zoomed_traces.m</file>
       <file>${PROJECT_ROOT}/helper_functions/generate_summary_snapshots.m</file>
       <file>${PROJECT_ROOT}/helper_functions/get_adjusted_coordinates.m</file>
@@ -147,15 +145,15 @@
       <file>${PROJECT_ROOT}/helper_functions/plot_bar_rectangle.m</file>
       <file>${PROJECT_ROOT}/helper_functions/plot_spike_nums.m</file>
       <file>${PROJECT_ROOT}/helper_functions/remove_nans.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/session.m</file>
       <file>${PROJECT_ROOT}/helper_functions/set_previous_cell.m</file>
       <file>${PROJECT_ROOT}/helper_functions/set_trace_axis_lims.m</file>
       <file>${PROJECT_ROOT}/helper_functions/update_enable_state.m</file>
+      <file>${PROJECT_ROOT}/helper_functions/update_model.m</file>
     </fileset.depfun>
     <fileset.resources />
     <fileset.package />
     <build-deliverables>
-      <file location="/Users/orhunakengin/Desktop/Research/ActSort" name="software" optional="false">/Users/orhunakengin/Desktop/Research/ActSort/software</file>
+      <file location="/Users/orhunakengin/Desktop/Research/ActSort-public" name="software" optional="false">/Users/orhunakengin/Desktop/Research/ActSort-public/software</file>
     </build-deliverables>
     <workflow />
     <matlab>
