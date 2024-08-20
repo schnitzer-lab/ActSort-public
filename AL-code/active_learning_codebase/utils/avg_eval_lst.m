@@ -1,0 +1,64 @@
+function [eval_metrics] = avg_eval_lst(eval_lst)
+N = length(eval_lst);
+eval = eval_lst{1};
+acc_matrix = zeros(N, size(eval.ACC, 2));
+tpr_matrix = zeros(N, size(eval.TPR, 2));
+tnr_matrix = zeros(N, size(eval.TNR, 2));
+pre_matrix = zeros(N, size(eval.Precision, 2));
+rec_matrix = zeros(N, size(eval.Recall, 2));
+fsc_matrix = zeros(N, size(eval.Fscore, 2));
+auc_matrix = zeros(N, size(eval.AUC, 2));
+
+tp_matrix = zeros(N, size(eval.TP, 2));
+tn_matrix = zeros(N, size(eval.TN, 2));
+fp_matrix = zeros(N, size(eval.FP, 2));
+fn_matrix = zeros(N, size(eval.FN, 2));
+p_matrix  = zeros(N, size(eval.P, 2));
+n_matrix  = zeros(N, size(eval.N, 2));
+accmean_matrix = zeros(N, size(eval.ACC_mean, 2));
+for i = 1:N
+    eval = eval_lst{i};
+    acc_matrix(i,:) = eval.ACC;
+    tpr_matrix(i,:) = eval.TPR;
+    tnr_matrix(i,:) = eval.TNR;
+    pre_matrix(i,:) = eval.Precision;
+    rec_matrix(i,:) = eval.Recall;
+    fsc_matrix(i,:) = eval.Fscore;
+    auc_matrix(i,:) = eval.AUC;
+
+    tp_matrix(i,:) = eval.TP;
+    tn_matrix(i,:) = eval.TN;
+    fp_matrix(i,:) = eval.FP;
+    fn_matrix(i,:) = eval.FN;
+    p_matrix(i,:)  = eval.P;
+    n_matrix(i,:)  = eval.N;
+    accmean_matrix(i,:) = eval.ACC_mean;
+end
+eval_metrics.ACC     = mean(acc_matrix, 1);
+eval_metrics.ACC_std = std(acc_matrix, 1);
+eval_metrics.TPR     = mean(tpr_matrix, 1);
+eval_metrics.TPR_std = std(tpr_matrix, 1);
+eval_metrics.TNR     = mean(tnr_matrix, 1);
+eval_metrics.TNR_std = std(tnr_matrix, 1);
+eval_metrics.Precision     = mean(pre_matrix, 1);
+eval_metrics.Precision_std = std(pre_matrix, 1);
+eval_metrics.Recall        = mean(rec_matrix, 1);
+eval_metrics.Recall_std    = std(rec_matrix, 1);
+eval_metrics.Fscore        = mean(fsc_matrix, 1);
+eval_metrics.Fscore_std    = std(fsc_matrix, 1);
+eval_metrics.AUC           = mean(auc_matrix, 1);
+eval_metrics.AUC_std       = std(auc_matrix, 1);
+
+eval_metrics.TP          = mean(tp_matrix, 1);
+eval_metrics.TP_std      = std(tp_matrix, 1);
+eval_metrics.TN          = mean(tn_matrix, 1);
+eval_metrics.TN_std      = std(tn_matrix, 1);
+eval_metrics.FP          = mean(fp_matrix, 1);
+eval_metrics.FP_std      = std(fp_matrix, 1);
+eval_metrics.P           = mean(p_matrix, 1);
+eval_metrics.P_std       = std(p_matrix, 1);
+eval_metrics.N           = mean(n_matrix, 1);
+eval_metrics.N_std       = std(n_matrix, 1);
+eval_metrics.ACCmean     = mean(accmean_matrix, 1);
+eval_metrics.ACCmean_std = std(accmean_matrix, 1);
+end
