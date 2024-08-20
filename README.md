@@ -1,5 +1,5 @@
 # ActSort
-<img src="https://github.com/user-attachments/assets/35ff835c-ca40-44cb-a880-154999f06f67" width=70% align="top" alt="actsort_pipeline">
+<img src="https://github.com/user-attachments/assets/35ff835c-ca40-44cb-a880-154999f06f67" width=67% align="top" alt="actsort_pipeline">
 
 <img src="https://github.com/user-attachments/assets/f04a8a33-929c-4dee-ad54-963383aeff02" width="28%" align="right" alt="Example_movie"> 
 
