@@ -6,12 +6,28 @@ ActSort is an active learning accelerated cell sorter tool for calcium imaging, 
 
 The figure on the right depicts an example cell annotation instance and is taken from our pre-print. The half-hemisphere is imaged through a 7mm x 7mm window with our custom wide-field fluorescence macroscope. Slightly more than 11k cell candidates were found using EXTRACT, and later sorted by human annotators. Green circles represent actual cells, whereas red circles represent cell candidates returned by EXTRACT but rejected by the human annotators.
 
-### Schedule a tutorial session!
+## Installation
+
+
+## Getting Started
+Browse the tutorial video to quickly gain expertise with ActSort. You can view the tutorials :eyes: online to master ActSort step-by-step.
+
+
+| Tutorial | View |
+| -------- | ---- |
+| 1 - Data upload | [:eyes:](<replace the link>) |
+| 2 - Preprocessing | [:eyes:](<replace the link>) |
+| 3 - Cell sorting | [:eyes:](<replace the link>) |
+| 4 - Final output | [:eyes:](<replace the link>) |
+| 5 - Batch processing | [:eyes:](<replace the link>) |
+| 6 - Fine-tuning | [:eyes:](<replace the link>) |
+
+## Schedule a tutorial session!
 
 Thank you for your interest in ActSort. To receive occasional updates about new releases, to ask questions about ActSort usage, or schedule a tutorial session for your lab, please send an email to extractneurons@gmail.com along with your name and institution. (Please be sure to add this email to your contact list so that replies and announcements do not go to your spam folder).  Thank you!  
 
 
-### Questions
+## Questions
 
 ActSort code is written and maintained by the current members of Schnitzerlab. If you have any questions or comments, please open an issue or contact via email `extractneurons@gmail.com`.
 
