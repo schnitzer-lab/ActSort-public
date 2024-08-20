@@ -1,4 +1,4 @@
-function [dataset_obj, method_obj] = initialization(features, config, pretrained)
+function [dataset, method] = initialization(features, config, pretrained)
 % INPUT
 %   [features] N x d.
 %   [config]   configuration object
@@ -33,6 +33,6 @@ if nargin < 3
     pretrained = [];
 end
 
-method_obj = al_class_package.method(config); 
-dataset_obj = al_class_package.dataset(features, pretrained); 
+method = al_class_package.method(config); 
+dataset = al_class_package.dataset(features, pretrained); 
 end
