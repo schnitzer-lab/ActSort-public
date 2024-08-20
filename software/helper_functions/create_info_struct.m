@@ -1,4 +1,12 @@
-function INFO = create_info_struct(dataset, session)
+function [INFO] = create_info_struct(dataset, session)
+% Creates an information structure with statistics and session details.
+% INPUT:
+%   [dataset] : instance of the dataset class, used to calculate stats.
+%   [session] : instance of the session class, containing session details.
+% OUTPUT:
+%   [INFO]    : structure containing average sorting time, total cells sorted,
+%               precomputed file name, and the creation date/time.
+
     stats = dataset.get_expert_stats();
     total_cells_sorted = stats(1) + stats(2);
 

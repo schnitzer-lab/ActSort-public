@@ -79,6 +79,12 @@ classdef session
             boundaryY = cell2mat(yValues(cellIndices));
         end
 
+        % Counts the number of spikes for the selected cell
+        function numSpikes = get_num_spikes(obj, cell_idx)
+            spikeIndices = obj.spikeIdxs(:, cell_idx);
+            numSpikes = numel(remove_nans(spikeIndices));
+        end
+
     end
 end
 

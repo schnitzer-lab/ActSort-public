@@ -1,5 +1,14 @@
-% Calculates new zoom limits based on the center cell and zoom level
 function [newXLim, newYLim] = calculate_zoom_limits(width, height, cell_center, zoom_level)
+% Calculates new zoom limits based on cell center and zoom level.
+% INPUT:
+%   [width]       : width of the full field.
+%   [height]      : height of the full field.
+%   [cell_center] : coordinates of the center cell [x, y].
+%   [zoom_level]  : zoom level (0 for full field, higher values for zoom).
+% OUTPUT:
+%   [newXLim]     : adjusted x-axis limits based on zoom.
+%   [newYLim]     : adjusted y-axis limits based on zoom.
+
     % If sliderValue is zero, we show the full field; otherwise, we calculate a reduced field
     if zoom_level == 0
         windowWidth = width*2;
