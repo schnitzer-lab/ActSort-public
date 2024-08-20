@@ -17,10 +17,9 @@ Browse the tutorial video to quickly gain expertise with ActSort. You can view t
 | Tutorial | View |
 | -------- | ---- |
 | 1 - Data upload | [:eyes:](<replace the link>) |
-| 2 - Preprocessing | [:eyes:](<replace the link>) |
-| 3 - Cell sorting | [:eyes:](<replace the link>) |
-| 4 - Final output | [:eyes:](<replace the link>) |
-| 5 - Fine-tuning | [:eyes:](<replace the link>) |
+| 2 - Cell sorting | [:eyes:](<replace the link>) |
+| 3 - Final output | [:eyes:](<replace the link>) |
+| 4 - Fine-tuning | [:eyes:](<replace the link>) |
 
 ## Schedule a tutorial session!
 
