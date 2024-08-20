@@ -3,7 +3,7 @@ function [eval_metrics, dataset, method] = play_active_learning_new(method_name,
 % cells based using [method]
 % [INPUT]
 %   [method_name] : the query algorithm name in string, e.g., 'cal',
-%                   'dcal=0.5'. 
+%                   'dcal-0.5'. 
 %   [metrics]    : the original features for all cells based on feature
 %                  engineering (76 x num_cells).
 %   [choices]    : the labels from one annotator. Same as choice_gt is we 

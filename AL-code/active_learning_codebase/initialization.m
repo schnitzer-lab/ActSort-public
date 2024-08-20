@@ -14,8 +14,12 @@ if config.zscore
 end
 
 if isstruct(config)
-    if ~isfield(config, "method_name"); config.method_name = "dcal-0.7"; end
-    if ~isfield(config, "weight"); config.weight = NaN; end
+    if ~isfield(config, "zscore"); config.zscore = true; end
+    if ~isfield(config, "n"); config.n = 1; end
+    if ~isfield(config, "method_name"); config.method_name = "dcal"; end
+    if ~ismember(config.method_name, ["dal", "cal", "algo-rank", "linear"])
+        if ~isfield(config, "weight"); config.weight = 0.7; end
+    end
     if ~isfield(config, "continue_sorting"); config.continue_sorting = false; end
     if ~isfield(config, "lam"); config.lam = "auto"; end
     if ~isfield(config, "balance_ratio"); config.balance_ratio = 1; end
