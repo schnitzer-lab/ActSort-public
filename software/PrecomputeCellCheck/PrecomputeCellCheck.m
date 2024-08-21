@@ -280,7 +280,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     end
 
     % STEP 17: Extract features
-    [features, FEATURE_TIME_SUMMARY] = create_features(precomputedOutput, parallel, fast_features);
+    [features, FEATURE_TIME_SUMMARY] = create_features(precomputedOutput, parallel, fast_features, progressDlg);
     precomputedOutput.features = features;
 
     % Check if cancelled
