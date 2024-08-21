@@ -41,8 +41,10 @@ method_name = method.name;
 THRESHOLD = 5; % number of cells to annotate before AL query algorithm
 num_good_cells = sum(dataset.labels_ex==1);
 num_bad_cells =  sum(dataset.labels_ex==-1);
+num_sorted_cells = num_good_cells + num_bad_cells;
+
 if num_good_cells<THRESHOLD || num_bad_cells<THRESHOLD
-    if (num_good_cells + num_bad_cells == 0) % If no cells sorted use random
+    if (num_sorted_cells == 0) % If no cells sorted use random
         method_name = 'random';
     else
         method_name = 'dal';
@@ -50,10 +52,6 @@ if num_good_cells<THRESHOLD || num_bad_cells<THRESHOLD
 end
 
 %% Query Algorithm Pick Sample to be Annotated
-
-if method_name == "linear"
-    method_name = 'algo-rank';
-end
 
 switch method_name
     case 'algo-rank'
