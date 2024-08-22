@@ -18,7 +18,7 @@ Open MATLAB and click `APPS` then `Install App`. Select `ActSort-public/software
 Browse the tutorial video to quickly gain expertise with ActSort. You can view the tutorials :eyes: online to master ActSort step-by-step.
 
 
-| Tutorial | View |
+| Tutorial | Watch |
 | -------- | ---- |
 | 1 - Preprocessing and data upload | [:eyes:](https://youtu.be/xUppZvX0WmY) |
 | 2 - Cell sorting | [:eyes:](https://youtu.be/Y9NA7l9GX94) |
