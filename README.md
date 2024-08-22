@@ -21,7 +21,7 @@ Browse the tutorial video to quickly gain expertise with ActSort. You can view t
 | Tutorial | View |
 | -------- | ---- |
 | 1 - Preprocessing and data upload | [:eyes:](https://youtu.be/xUppZvX0WmY) |
-| 2 - Cell sorting | [:eyes:](https://youtu.be/nYXzdk__aAk) |
+| 2 - Cell sorting | [:eyes:](https://youtu.be/Y9NA7l9GX94) |
 | 3 - Saving the final output + loading a model for fine-tuning | [:eyes:](https://youtu.be/Y-u87BXRBRk) |
 
 ## Schedule a tutorial session!
