@@ -72,11 +72,14 @@ classdef session
         end
 
         % Extracts and updates the display of cell boundaries
-        function [boundaryX, boundaryY] = get_boundaries(obj, cellIndices)
-            xValues = obj.cellBoundaries(1,:);
-            yValues = obj.cellBoundaries(2,:);
-            boundaryX = cell2mat(xValues(cellIndices));
-            boundaryY = cell2mat(yValues(cellIndices));
+        function [boundariesX, boundariesY] = get_boundaries(obj, cellIndices)
+            corresponding_cells = obj.cellBoundaries(cellIndices);
+            boundariesX = cellfun(@(c) c(1, :), corresponding_cells, 'UniformOutput', false);
+            boundariesY = cellfun(@(c) c(2, :), corresponding_cells, 'UniformOutput', false);
+        
+            % Convert cell arrays to matrices
+            boundariesX = [boundariesX{:}];
+            boundariesY = [boundariesY{:}];
         end
 
         % Counts the number of spikes for the selected cell

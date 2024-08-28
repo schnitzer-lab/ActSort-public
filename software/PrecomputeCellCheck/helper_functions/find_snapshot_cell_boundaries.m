@@ -5,8 +5,8 @@ function snapshot_cell_boundaries = find_snapshot_cell_boundaries(cell_boundarie
     for i = 1: numCells
         lowXlim = limits(1,i);
         lowYlim = limits(3,i);
-        boundaryX = cell_boundaries{1,i};
-        boundaryY = cell_boundaries{2,i};
+        boundaryX = cell_boundaries{i}(1,:);
+        boundaryY = cell_boundaries{i}(2,:);
 
         snapshot_cell_boundaries{i} = single([boundaryX-lowXlim+1; boundaryY-lowYlim+1]);
     end

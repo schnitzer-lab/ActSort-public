@@ -264,11 +264,8 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
 
     update_progress("Processing H5 File... DONE!", 0.6, progressDlg); %Update progress
     update_progress("Extracting Features...", [], progressDlg); %Update progress
-    
-    % STEP 15: Initiate cellLabels
-    cellLabels = zeros(size(spatial_weights,3),1,'int8');
 
-    % STEP 16: Create the output structure
+    % STEP 15: Create the output structure
     precomputedOutput = create_precomputed_output();
     PRECOMPUTE_TIME_SUMMARY.TOTAL = posixtime(datetime) - start_time;
 
@@ -279,7 +276,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
         return;
     end
 
-    % STEP 17: Extract features
+    % STEP 16: Extract features
     [features, FEATURE_TIME_SUMMARY] = create_features(precomputedOutput, parallel, fast_features, progressDlg);
     precomputedOutput.features = features;
 
@@ -293,7 +290,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     update_progress("Feature extraction... DONE!", 0.9, progressDlg); %Update progress
     update_progress("Saving the precomputed sorting file...", [], progressDlg);
 
-    % Step 18: Write the INFO structure
+    % Step 17: Write the INFO structure
     INFO = struct;
 
     % Add file info
@@ -331,7 +328,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
 
     precomputedOutput.INFO = INFO;  
 
-    % STEP 19: Save the output structure as .m file
+    % STEP 18: Save the output structure as .m file
     newFileName = "precomputed_" + strcat(mat_file_name, mat_file_ext);
     save(newFileName, 'precomputedOutput', '-v7.3');
 
@@ -357,6 +354,5 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
         precomputedOutput.snapshotCLims = snapshotCLims;
         precomputedOutput.neighborBoundaries = neighborBoundaries;
         precomputedOutput.max_im = single(max_im);
-        precomputedOutput.cellLabels = cellLabels;
     end
 end
