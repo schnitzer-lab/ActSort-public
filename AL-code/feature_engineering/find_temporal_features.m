@@ -40,9 +40,9 @@ if parforFlag
         % find_time_elapsed_spikes
         traceData = T(:, i);
         MPP = quantile(traceData,0.9)*0.5;
-        if MPP <= 0
-            MPP = std(traceData);
-        end
+%         if MPP <= 0
+%             MPP = std(traceData);
+%         end
         [~,goodSpikeIndices] = findpeaks(traceData,'MinPeakProminence',MPP);
         [~,allSpikeIndices] = findpeaks(traceData);
         badSpikeIndices= setdiff(allSpikeIndices, goodSpikeIndices);
@@ -81,9 +81,9 @@ else
         % find_time_elapsed_spikes
         traceData = T(:, i);
         MPP = quantile(traceData,0.9)*0.5;
-        if MPP <= 0
-            MPP = std(traceData);
-        end
+%         if MPP <= 0
+%             MPP = std(traceData);
+%         end
         [~,goodSpikeIndices] = findpeaks(traceData,'MinPeakProminence',MPP);
         [~,allSpikeIndices] = findpeaks(traceData);
         badSpikeIndices= setdiff(allSpikeIndices, goodSpikeIndices);

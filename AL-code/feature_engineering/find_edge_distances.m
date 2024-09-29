@@ -12,21 +12,35 @@ binaryMatrix = S > 0; %Convert to binary for efficiency
 
 if parallel
     parfor i = 1:numCells
-        slice = binaryMatrix(:,:,i); 
-        [row, col] = find(slice); 
-        % Calculate mean of the positions
-        x = mean(col);
-        y = mean(row);
+        currentCell = full(S(:,:,i));
+        %FIND CELL CENTERS
+        maxValue = max(currentCell(:));
+        [row, col] = find(currentCell == maxValue);
+%         slice = binaryMatrix(:,:,i); 
+%         [row, col] = find(slice); 
+%         % Calculate mean of the positions
+%         x = mean(col);
+%         y = mean(row);
+        middleIndex = ceil(numel(row) / 2);
+        x = col(middleIndex);
+        y = row(middleIndex);
     
         edge_distances(i) = min(min(y,H-y),min(x,W-x));
     end
 else
     for i = 1:numCells
-        slice = binaryMatrix(:,:,i); 
-        [row, col] = find(slice); 
-        % Calculate mean of the positions
-        x = mean(col);
-        y = mean(row);
+        currentCell = full(S(:,:,i));
+        %FIND CELL CENTERS
+        maxValue = max(currentCell(:));
+        [row, col] = find(currentCell == maxValue);
+%         slice = binaryMatrix(:,:,i); 
+%         [row, col] = find(slice); 
+%         % Calculate mean of the positions
+%         x = mean(col);
+%         y = mean(row);
+        middleIndex = ceil(numel(row) / 2);
+        x = col(middleIndex);
+        y = row(middleIndex);
     
         edge_distances(i) = min(min(y,H-y),min(x,W-x));
     end

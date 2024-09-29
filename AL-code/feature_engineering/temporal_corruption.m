@@ -12,5 +12,5 @@ function metric = temporal_corruption(T)
 %     end
     valid_X = X .* is_valid;
     valid_X(~is_valid) = NaN;
-    metric = nanmean(valid_X, 2)';
+    metric = mean(valid_X, 2, "omitnan")';
 end

@@ -15,8 +15,8 @@ function neighborIdxs = find_neighbors(boundaries, centers, margin, idx, size)
     W = size(2);
     cellCentersX = centers(1,:);
     cellCentersY = centers(2,:);
-    boundaryX = boundaries{idx}(1,:);
-    boundaryY = boundaries{idx}(2,:);
+    boundaryX = boundaries{1,idx};
+    boundaryY = boundaries{2,idx};
     
     upXlim = min(max(boundaryX) + margin, W);
     lowXlim = max(min(boundaryX) - margin, 1);

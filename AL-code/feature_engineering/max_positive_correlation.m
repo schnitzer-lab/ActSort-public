@@ -8,24 +8,22 @@ function metric = max_positive_correlation(S)
     [~, numCols] = size(S);
     metric = zeros(1, numCols);  % Preallocate the metric vector
 
-    norms = sqrt(sum(S.^2, 1));  % Compute the norm of each column (2-norm or Euclidean norm)
-
     for i = 1:numCols
         temp = S(:,i);
-        cors = temp' * S;  % Dot product of column i with all columns
+        cors = temp' * S; % Dot product of column i with all columns
 
-        % Normalize the dot products to get correlation coefficients
-        cors = cors ./ (norms(i) * norms);  % Normalize with the norms of i-th column and all columns
-
-        % Set self-correlation to negative infinity to exclude it from max calculation
-        cors(i) = -Inf;
-
-        % Find the maximum positive correlation
-        maxCor = max(cors(cors > 0));
-        if isempty(maxCor)
+        % Logical indexing to find positive correlations, excluding self-correlation
+        validInd = cors > 0 & (1:numCols) ~= i;
+        
+        % Extract columns that have a positive correlation
+        temp2 = S(:, validInd);
+        
+        % Calculate the correlation
+        if isempty(temp2)
             metric(i) = 0;
         else
-            metric(i) = maxCor;
+            a = full(corr(temp, temp2));
+            metric(i) = max(a);
         end
     end
 end

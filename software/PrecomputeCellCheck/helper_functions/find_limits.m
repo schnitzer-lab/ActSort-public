@@ -16,10 +16,10 @@ function [lowXlim, upXlim, lowYlim, upYlim] = find_limits(cellBoundary, neighbor
     H = size(1);
     W = size(2);
 
-    maxX = max([cellBoundary(1,:)+margin, neighborBoundary(1,:)]);
-    minX = min([cellBoundary(1,:)-margin, neighborBoundary(1,:)]);
-    maxY = max([cellBoundary(2,:)+margin, neighborBoundary(2,:)]);
-    minY = min([cellBoundary(2,:)-margin, neighborBoundary(2,:)]);
+    maxX = max([cellBoundary{1}+margin, neighborBoundary(1,:)]);
+    minX = min([cellBoundary{1}-margin, neighborBoundary(1,:)]);
+    maxY = max([cellBoundary{2}+margin, neighborBoundary(2,:)]);
+    minY = min([cellBoundary{2}-margin, neighborBoundary(2,:)]);
 
     lowXlim = max(minX , 1);
     upXlim = min(maxX, W);
