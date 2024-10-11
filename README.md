@@ -33,5 +33,6 @@ Thank you for your interest in ActSort. To receive occasional updates about new 
 
 ActSort code is written and maintained by the current members of Schnitzerlab. If you have any questions or comments, please open an issue or contact via email `extractneurons@gmail.com`.
 
-### Citations
-
+## Citations
+For details of implementation, please see this [paper](https://www.biorxiv.org/content/10.1101/2024.08.21.609011v1.abstract)
+Jiang, Y., Akengin, H. O., Zhou, J., Aslihak, M. A., Li, Y., Hernandez, O., ... & Schnitzer, M. J. (2024). ActSort: An active-learning accelerated cell sorting algorithm for large-scale calcium imaging datasets. bioRxiv, 2024-08.
