@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3914958450" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2980556872" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
     <param.appname>ActSort</param.appname>
     <param.authnamewatermark>Hakki Orhun Akengin</param.authnamewatermark>
     <param.email>akengin@stanford.edu</param.email>
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Sort and label your cells!</param.summary>
     <param.description>This app is created to sort the output cells of EXTRACT, an automated cell extraction tool for calcium imaging, which extracts the activities of cells from both one-photon and two-photon calcium imaging movies.</param.description>
-    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tp08b84ebe_66fc_451a_98d0_eb8d1fadbac3.png</param.screenshot>
-    <param.version>1.10</param.version>
+    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tpacd3be2e_4233_44ed_bab7_546e349fa787.png</param.screenshot>
+    <param.version>1.11</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -122,6 +122,7 @@
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/parse_extract_output.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/raise_alert.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/set_trace_event_interval.m</file>
+      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/shift_traces_to_positive.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/update_neighbor_boundaries.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/update_progress.m</file>
       <file>${PROJECT_ROOT}/helper_functions/adjust_constrast_value.m</file>

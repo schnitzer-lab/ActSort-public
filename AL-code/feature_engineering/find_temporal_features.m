@@ -1,8 +1,15 @@
 function [output] = find_temporal_features(T, parforFlag)
+% This function finds the temporal features
+% [T]           : Trace activity and assumed to be [data x num_cells]
+% [parforFlag]  : Boolean to activate the parallel computing.
+% [output]      : Computed features
+
 [~,numCells] = size(T);
 
 T1 = T ./max(T,[],1);
 T2 = normalize(T,'range');
+
+T = shift_traces_to_positive(T); % Enforce nonnegativity
 
 num_spikes = zeros(1,numCells);
 
