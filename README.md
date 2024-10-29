@@ -1,4 +1,4 @@
-# ActSort
+# ActSort v0.1
 
 
 ActSort is an active learning accelerated cell sorter tool for calcium imaging, which automates the quality control process of cell extraction. It is a standalone quality control pipeline that can be used to annotate cell candidates extracted by cell extraction algorithms. If you are interested in cell extraction, see [EXTRACT](https://github.com/schnitzer-lab/EXTRACT-public)!
