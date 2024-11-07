@@ -7,14 +7,26 @@ function [dataset_name, idx] = ask_for_dataset(dataset_names, uifigure)
 %
 % OUTPUT
 %   [dataset_name] : user selected dataset name.
-%   [m_size] : The dimensions of the movie.
+%   [idx] : The index of the dataset
 %
 
 num_datasets = numel(dataset_names);
-% If there's only one dataset, select it directly
+
 if num_datasets == 1
-    dataset_name = char(dataset_names(1));
+    % If there's only one dataset, select it directly
     idx = 1;
+    dataset_name = char(dataset_names(idx));
+    return;
+elseif num_datasets == 2
+    % If there are two datasets, and one of them is called "/F_per_pixel",
+    % choose the other dataset. (F_per_pixel comes from EXTRACT and assured
+    % to never contain the movie dataset.)
+    if strcmp(dataset_names(1) , "/F_per_pixel")
+        idx = 2;
+    elseif strcmp(dataset_names(2) , "/F_per_pixel")
+        idx = 1;
+    end
+    dataset_name = char(dataset_names(idx));
     return;
 end
 
@@ -28,7 +40,7 @@ if ~isempty(uifigure)
     
     % Create a dialog box
     d = dialog('Position',[300 300 button_width+100 dialog_height],...
-               'Name','Select a Dataset',...
+               'Name','Select which dataset contains the movie',...
                'CloseRequestFcn', @closeDialog);
 
     % Adjust positions based on the number of datasets
@@ -63,7 +75,7 @@ else
     
     % Keep asking for a valid index until one is given
     while true
-        input_idx = input("Please enter index of dataset to use ('exit' to stop): ", "s");
+        input_idx = input("Which dataset contains the movie ('exit' to stop): ", "s");
         try
             if (strcmpi(input_idx, "exit"))
                 dataset_name = nan;
@@ -74,7 +86,7 @@ else
             dataset_name = char(dataset_names(idx));
             return;
         catch
-            warning("Please enter a valid index!");
+            warning("Please enter a valid index! (e.g. 1)");
         end
     end
 end

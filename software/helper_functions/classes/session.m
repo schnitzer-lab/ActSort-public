@@ -74,7 +74,7 @@ classdef session
         % Extracts and updates the display of cell boundaries
         function [boundariesX, boundariesY] = get_boundaries(obj, cellIndices)
             corresponding_cells = obj.cellBoundaries(:, cellIndices);
-            boundariesX = corresponding_cells(1, :);
+            boundariesX = corresponding_cells(1, :); 
             boundariesY = corresponding_cells(2, :);
         
             % Convert cell arrays to matrices

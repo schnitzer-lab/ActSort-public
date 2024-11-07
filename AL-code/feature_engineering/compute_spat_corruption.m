@@ -1,4 +1,4 @@
-function metric = compute_spat_corruption_JZ(F, siz, visualize, sparse_array, parforFlag)
+function metric = compute_spat_corruption(F, siz, visualize, sparse_array, parforFlag)
 
     if nargin < 3 || isempty(visualize)
         visualize = false;
@@ -146,7 +146,7 @@ function [F_diff] = local_imfilter(F_temp, filt,mask_in_temp,h,w)
     min_col = min(cols) - pad_n;
     max_col = max(cols) + pad_n;
     if min_row<1 ||max_row>m ||min_col<1 ||max_col>n
-        fprintf('one boundary case!\n')
+        %fprintf('one boundary case!\n')
         local_mean = imfilter(F_temp,filt,'replicate');
         F_diff = mask_in_temp.*(F_temp-local_mean);
 

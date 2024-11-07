@@ -1,6 +1,6 @@
 function [corr_score, scores_1, scores_2, scores_3] = ...
         find_spurious_cells(S, T, M, S_surround, pre_T_in, pre_T_out, fov_size, avg_radius, use_gpu)
-    
+    try
     S_MASK_THRESHOLD = 0.01;
     T_MASK_THRESHOLD = 0.5;
     GAUSS_FILTER_RADIUS_SMALL = avg_radius;
@@ -125,5 +125,8 @@ function [corr_score, scores_1, scores_2, scores_3] = ...
             scores_2(k, i) = quantile(s2, quantiles(k));
             scores_3(k, i) = quantile(s3, quantiles(k));
         end
+    end
+    catch
+        corr_score = nan; scores_1 = nan; scores_2 = nan; scores_3 = nan;
     end
 end

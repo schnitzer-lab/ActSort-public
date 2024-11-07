@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2980556872" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1712555211" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
     <param.appname>ActSort</param.appname>
     <param.authnamewatermark>Hakki Orhun Akengin</param.authnamewatermark>
     <param.email>akengin@stanford.edu</param.email>
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Sort and label your cells!</param.summary>
     <param.description>This app is created to sort the output cells of EXTRACT, an automated cell extraction tool for calcium imaging, which extracts the activities of cells from both one-photon and two-photon calcium imaging movies.</param.description>
-    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tpacd3be2e_4233_44ed_bab7_546e349fa787.png</param.screenshot>
-    <param.version>1.11</param.version>
+    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tp9fc59b32_0fee_43ba_8540_e0aa9f9eb43a.png</param.screenshot>
+    <param.version>1.12</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -72,6 +72,7 @@
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/has_multiple_bodies.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/max_positive_correlation.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/maybe_gpu.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/ndSparse.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/normalize_to_one.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/parse_precomputed_output.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/peakseek.m</file>
@@ -116,7 +117,6 @@
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_viewing_limits.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/get_features.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/get_system_info.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/ndSparse.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/parse_dataset_info.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/parse_dataset_names.m</file>
       <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/parse_extract_output.m</file>
@@ -201,7 +201,7 @@
       <vista>false</vista>
       <linux>false</linux>
       <solaris>false</solaris>
-      <osver>15.0</osver>
+      <osver>15.0.1</osver>
       <os32>false</os32>
       <os64>true</os64>
       <arch>maci64</arch>
