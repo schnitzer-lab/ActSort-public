@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="1712555211" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="2307500033" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
     <param.appname>ActSort</param.appname>
     <param.authnamewatermark>Hakki Orhun Akengin</param.authnamewatermark>
     <param.email>akengin@stanford.edu</param.email>
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Sort and label your cells!</param.summary>
     <param.description>This app is created to sort the output cells of EXTRACT, an automated cell extraction tool for calcium imaging, which extracts the activities of cells from both one-photon and two-photon calcium imaging movies.</param.description>
-    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tp9fc59b32_0fee_43ba_8540_e0aa9f9eb43a.png</param.screenshot>
-    <param.version>1.12</param.version>
+    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tpec1bed92_a3cf_455f_8bc2_9d6dbc8ae086.png</param.screenshot>
+    <param.version>1.13</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
