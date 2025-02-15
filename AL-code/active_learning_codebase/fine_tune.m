@@ -102,17 +102,13 @@ else
             'learner', 'logistic', 'regularization', 'lasso',...
              'ClassNames', [0, 1], 'Prior', 'empirical','Lambda',"auto");
 end
-N = size(dataset.features, 1);
-[~, pred_probs] = predict(mdl, dataset.features);
-pred = zeros(N, 1) - 1;  % because we label it in -1 and 1
-pred_one_idxs = pred_probs(:,2) > method.cls_threshold;
-pred(pred_one_idxs) = 1;
-
-dataset.labels_ml_prob = pred_probs(:,2);
-dataset.labels_ml = pred;
 
 dataset.mdl = mdl;
+[dataset.labels_ml, dataset.labels_ml_prob] = classify_cells(dataset.mdl, dataset.features, method.cls_threshold);
+
 %% Throw away uncertain confusing samples in the pretrained dataset
+pred = dataset.labels_ml;
+
 if sum(pretrained.labels_ex ~= 0) ~= 0  % if there are annotated samples  
     % throw away a wrong sample from the pretrained dataset
     threshold = method.threshold;

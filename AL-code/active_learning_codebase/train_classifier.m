@@ -58,13 +58,7 @@ else
             'learner', 'logistic', 'regularization', 'lasso',...
              'ClassNames', [0, 1], 'Prior', 'empirical','Lambda',lam);	
 end
-[~, pred_probs] = predict(mdl, dataset.features);
-pred = zeros(N, 1) - 1;  % because we label it in -1 and 1
-pred_one_idxs = pred_probs(:,2) > method.cls_threshold;
-pred(pred_one_idxs) = 1;
-
-dataset.labels_ml_prob = pred_probs(:,2);
-dataset.labels_ml = pred;
 
 dataset.mdl = mdl;
+[dataset.labels_ml, dataset.labels_ml_prob] = classify_cells(dataset.mdl, dataset.features, method.cls_threshold);
 end
