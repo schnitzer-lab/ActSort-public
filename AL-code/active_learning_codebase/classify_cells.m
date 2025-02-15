@@ -21,6 +21,9 @@ function [labels_ml, probs] = classify_cells(model, features, cls_threshold)
         cls_threshold = 0.5;
     end
 
+    % Normalize features
+    features = zscore(features, 0, 1);
+
     % Perform classification using the pretrained model
     [~, pred_probs] = predict(model, features);
 
