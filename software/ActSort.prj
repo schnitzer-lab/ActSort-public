@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="2307500033" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="3478758311" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
     <param.appname>ActSort</param.appname>
     <param.authnamewatermark>Hakki Orhun Akengin</param.authnamewatermark>
     <param.email>akengin@stanford.edu</param.email>
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Sort and label your cells!</param.summary>
     <param.description>This app is created to sort the output cells of EXTRACT, an automated cell extraction tool for calcium imaging, which extracts the activities of cells from both one-photon and two-photon calcium imaging movies.</param.description>
-    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tpec1bed92_a3cf_455f_8bc2_9d6dbc8ae086.png</param.screenshot>
-    <param.version>1.13</param.version>
+    <param.screenshot />
+    <param.version>1.14</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -22,6 +22,7 @@
     <param.guid>ff534a09-6896-4bca-9721-3698dd8ce450</param.guid>
     <unset>
       <param.company />
+      <param.screenshot />
       <param.products.name />
       <param.products.id />
       <param.products.version />
@@ -35,6 +36,7 @@
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/+al_class_package/dataset.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/+al_class_package/method.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/annotate.m</file>
+      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/classify_cells.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/fine_tune.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/initialization.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/predict_rest.m</file>
@@ -158,39 +160,8 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2021b.app</root>
-      <toolboxes>
-        <toolbox name="matlabcoder" />
-        <toolbox name="embeddedcoder" />
-        <toolbox name="fixedpoint" />
-        <toolbox name="matlabhdlcoder" />
-        <toolbox name="neuralnetwork" />
-      </toolboxes>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
-      <toolbox>
-        <embeddedcoder>
-          <enabled>true</enabled>
-        </embeddedcoder>
-      </toolbox>
-      <toolbox>
-        <fixedpoint>
-          <enabled>true</enabled>
-        </fixedpoint>
-      </toolbox>
-      <toolbox>
-        <matlabhdlcoder>
-          <enabled>true</enabled>
-        </matlabhdlcoder>
-      </toolbox>
-      <toolbox>
-        <neuralnetwork>
-          <enabled>true</enabled>
-        </neuralnetwork>
-      </toolbox>
+      <root>/Applications/MATLAB_R2023b.app</root>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>true</unix>
@@ -202,8 +173,8 @@
       <linux>false</linux>
       <solaris>false</solaris>
       <osver>15.0.1</osver>
-      <os32>false</os32>
-      <os64>true</os64>
+      <os32>true</os32>
+      <os64>false</os64>
       <arch>maci64</arch>
       <matlab>true</matlab>
     </platform>
