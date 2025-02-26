@@ -12,7 +12,7 @@ ActSort is an active learning accelerated cell sorter tool for calcium imaging, 
 The figure on the right depicts an example cell annotation instance and is taken from our pre-print. The half-hemisphere is imaged through a 7mm x 7mm window with our custom wide-field fluorescence macroscope (1p). Slightly more than 11k cell candidates were found using EXTRACT, and later sorted by human annotators. Green circles represent actual cells, whereas red circles represent cell candidates returned by EXTRACT but rejected by the human annotators.
 
 ## Installation
-Open MATLAB and click `APPS` then `Install App`. Select `ActSort-public/software/ActSort.mlappinstall`. You can also install the App by double clicking the `ActSort-public/software/ActSort.mlappinstall` under your local path. You can find the App installed in your MATLAB APPS bar! Add to your favoraites by ⭐ it!
+Open MATLAB and click `APPS` then `Install App`. Select `ActSort-public/software/ActSort.mlappinstall`. You can also install the App by double clicking the `ActSort-public/software/ActSort.mlappinstall` under your local path. You can find the App installed in your MATLAB APPS bar! Add to your favoraites by ⭐ it! (We suggest the user to use ActSort-public with **MATLAB 2021b**, as some MATLAB versions have certain required package missing)
 
 ## Getting Started
 Browse the tutorial video to quickly gain expertise with ActSort. You can view the tutorials :eyes: online to master ActSort step-by-step.
