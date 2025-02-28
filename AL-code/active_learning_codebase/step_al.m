@@ -43,7 +43,7 @@ num_good_cells = sum(dataset.labels_ex==1);
 num_bad_cells =  sum(dataset.labels_ex==-1);
 num_sorted_cells = num_good_cells + num_bad_cells;
 
-if num_good_cells<THRESHOLD || num_bad_cells<THRESHOLD
+if ~strcmp(method_name, 'algo-rank') && (num_good_cells<THRESHOLD || num_bad_cells<THRESHOLD)
     if (num_sorted_cells == 0) % If no cells sorted use random
         method_name = 'random';
     else
