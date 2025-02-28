@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="3478758311" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="441924019" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
     <param.appname>ActSort</param.appname>
     <param.authnamewatermark>Hakki Orhun Akengin</param.authnamewatermark>
     <param.email>akengin@stanford.edu</param.email>
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Sort and label your cells!</param.summary>
     <param.description>This app is created to sort the output cells of EXTRACT, an automated cell extraction tool for calcium imaging, which extracts the activities of cells from both one-photon and two-photon calcium imaging movies.</param.description>
-    <param.screenshot />
-    <param.version>1.14</param.version>
+    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tp238c5199_bc61_4abf_b7f2_b794ab0988ce.png</param.screenshot>
+    <param.version>1.15</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -22,7 +22,6 @@
     <param.guid>ff534a09-6896-4bca-9721-3698dd8ce450</param.guid>
     <unset>
       <param.company />
-      <param.screenshot />
       <param.products.name />
       <param.products.id />
       <param.products.version />
@@ -160,8 +159,39 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2023b.app</root>
-      <toolboxes />
+      <root>/Applications/MATLAB_R2021b.app</root>
+      <toolboxes>
+        <toolbox name="matlabcoder" />
+        <toolbox name="embeddedcoder" />
+        <toolbox name="fixedpoint" />
+        <toolbox name="matlabhdlcoder" />
+        <toolbox name="neuralnetwork" />
+      </toolboxes>
+      <toolbox>
+        <matlabcoder>
+          <enabled>true</enabled>
+        </matlabcoder>
+      </toolbox>
+      <toolbox>
+        <embeddedcoder>
+          <enabled>true</enabled>
+        </embeddedcoder>
+      </toolbox>
+      <toolbox>
+        <fixedpoint>
+          <enabled>true</enabled>
+        </fixedpoint>
+      </toolbox>
+      <toolbox>
+        <matlabhdlcoder>
+          <enabled>true</enabled>
+        </matlabhdlcoder>
+      </toolbox>
+      <toolbox>
+        <neuralnetwork>
+          <enabled>true</enabled>
+        </neuralnetwork>
+      </toolbox>
     </matlab>
     <platform>
       <unix>true</unix>
@@ -173,8 +203,8 @@
       <linux>false</linux>
       <solaris>false</solaris>
       <osver>15.0.1</osver>
-      <os32>true</os32>
-      <os64>false</os64>
+      <os32>false</os32>
+      <os64>true</os64>
       <arch>maci64</arch>
       <matlab>true</matlab>
     </platform>
