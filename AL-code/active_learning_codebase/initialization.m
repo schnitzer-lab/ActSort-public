@@ -1,6 +1,6 @@
 function [dataset, method] = initialization(features, config, pretrained)
 % INPUT
-%   [features] N x d.
+%   [features] cell of N x d.
 %   [config]   configuration object
 %   [pretrained]   pretrained dataset (optional). Speficied if fine-tuning.
 %

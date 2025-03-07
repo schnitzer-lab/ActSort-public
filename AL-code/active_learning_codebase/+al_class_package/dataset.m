@@ -46,7 +46,9 @@ classdef dataset
             obj.INFO = info_struct;
         end
 
-        function obj = update_sorting_order(obj, cell_idx, dataset_idx)
+        function obj = update_sorting_order(obj, q_idxs)
+            cell_idx    = q_idxs(1);
+            dataset_idx = q_idxs(2);
             order = obj.sorting_order(:,:);  % Ensure sorting_order is a row vector
             row_to_find = [dataset_idx, cell_idx];
             is_row_present = ismember(order', row_to_find', 'rows');
