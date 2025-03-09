@@ -21,9 +21,7 @@ end
 switch method_name
     case {'random', 'cal', 'dal', 'algo-rank'}
         config.method_name = method_name;
-        if isfield(config, 'weight')
-            config = rmfield(config, 'weight');
-        end
+        config.weight = NaN;
     case 'dcal'
         config.method_name = 'dcal';
         config.weight      = weight;

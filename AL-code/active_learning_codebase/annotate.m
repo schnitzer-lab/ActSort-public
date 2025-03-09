@@ -11,7 +11,9 @@ function dataset = annotate(dataset, q_idxs, label)
 %
 % OUTPUT
 %   [dataset] : modify the labels_ex field
+dataset_id = q_idxs(1);
+cell_id    = q_idxs(2);
 
-dataset.labels_ex(q_idxs) = label;
+dataset.labels_ex{dataset_id}(cell_id) = label;
 dataset = dataset.update_sorting_order(q_idxs);
 end

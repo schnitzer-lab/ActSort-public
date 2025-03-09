@@ -15,34 +15,28 @@ function [q_idxs, scores] = strategy_random_sampling(dataset, n)
 %   - Randomly selects `n` unsorted cells from all datasets (without replacement).
 
 %% Query
-q_idxs = NaN; % Default if all datasets are sorted
-all_unlabeled = []; % To store all [dataset_idx, cell_idx] pairs
+N_lst = dataset.num_cells;
+data_mask = repelem(1:numel(N_lst), N_lst)';
+cell_mask = arrayfun(@(N) 1:N, N_lst, 'UniformOutput', false);
+cell_mask = horzcat(cell_mask{:})';
 
-% Iterate over all dataset indices
-for ds_idx = 1:length(dataset.labels_ex)
-    labels_subset = dataset.labels_ex{ds_idx}; % Get labels for current dataset
+labels_ex = vertcat(dataset.labels_ex{:});
 
-    % Find unlabeled (unsorted) cell indices
-    unlabeled_idxs = find(labels_subset == 0);
+unlabeled_idxs = find(labels_ex == 0);
 
-    % Store dataset index and cell index pairs
-    if ~isempty(unlabeled_idxs)
-        all_unlabeled = [all_unlabeled; repmat(ds_idx, length(unlabeled_idxs), 1), unlabeled_idxs];
-    end
+if isempty(unlabeled_idxs)
+    scores = ones(n, 1);
+    q_idxs = [NaN, NaN];
+    return
 end
 
-% If no unlabeled cells remain, return NaN
-if isempty(all_unlabeled)
-    scores = ones(n,1);
-    q_idxs = NaN;
-    return;
-end
+unlabeled_idxs = randsample(unlabeled_idxs, n, false); % sample without replacement
 
-% Randomly select `n` unsorted cells (without replacement)
-num_samples = min(n, size(all_unlabeled, 1)); % Ensure we don't exceed available samples
-rand_indices = randperm(size(all_unlabeled, 1), num_samples);
-q_idxs = all_unlabeled(rand_indices, :);
+unlabeled_data_idxs = data_mask(unlabeled_idxs)';
+unlabeled_cell_idxs = cell_mask(unlabeled_idxs)';
 
-% Initialize scores
-scores = zeros(size(q_idxs,1),1);
+q_idxs = zeros(n, 2);
+q_idxs(:,1) = unlabeled_data_idxs;
+q_idxs(:,2) = unlabeled_cell_idxs;
+scores = zeros(n, 1);
 end

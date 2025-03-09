@@ -2,13 +2,13 @@ function [dataset, method] = train_classifier(dataset, method)
 % This function train cell classifier (logistic regression)
 % INPUT:
 %   [dataset] a class that contain fields
-%       - features       : N x d.
-%       - labels_ex      : N x 1 human / expert labels.
-%       - labels_ml      : N x 1 cell classifier / ML labels .
-%       - labels_ml_probs: N x 1 ML labels corresponding probablities being
+%       - features       : cell of N x d.
+%       - labels_ex      : cell of N x 1 human / expert labels.
+%       - labels_ml      : cell of N x 1 cell classifier / ML labels .
+%       - labels_ml_probs: cell of N x 1 ML labels corresponding probablities being
 %                          a cell predicted by mdl.
-%       - q_idx_lst      : the query list of selected annotated cell
-%                          indices.
+%       - q_idx_lst      : the query 2D array of selected annotated cell
+%                          indices [dataset_id, cell_id]
 %       - mdl            : the classifier.
 %   [method] the active learning query method
 %       - name     : query algorithm name ['random', 'cal', 'dal', 'dcal']
@@ -29,36 +29,39 @@ function [dataset, method] = train_classifier(dataset, method)
 %   [dataset] : modify the labeld_ml field in the input dataset
 %   [method]  : the cell classifier, a logistic regression model
 %% Ready for logistic regression (classes as 0 and 1)
-N = size(dataset.features, 1);
-labeled_idxs = find(dataset.labels_ex ~= 0);
-labeled_ex01 = dataset.labels_ex(labeled_idxs);
-labeled_ex01(labeled_ex01==-1) = 0;
-assert(all(labeled_ex01 == 0 | labeled_ex01 == 1), 'The array labeled_ex01 is not binary.');
+
+labeled_idxs_cell = cellfun(@(x) find(x ~= 0), dataset.labels_ex, 'UniformOutput', false);
+labeled_ex_cell   = cellfun(@(labels_ex, labeled_idxs) labels_ex(labeled_idxs), dataset.labels_ex, labeled_idxs_cell, 'UniformOutput', false);
+features_ex_cell  = cellfun(@(features, labeled_idxs) features(labeled_idxs,:), dataset.features, labeled_idxs_cell, 'UniformOutput', false);
+% Create mask
+uN_lst = cellfun(@(x) size(x, 1), features_ex_cell, 'UniformOutput', true); % a list of how many cells in each datasets. 
+mask = repelem(1:numel(uN_lst), uN_lst)';
+
+labeled_ex  = vertcat(labeled_ex_cell{:});
+features_ex = vertcat(features_ex_cell{:});
 
 %% Define the logistic regression regularization term
 lam = method.lam;
-num_samples = size(labeled_idxs,1);
+num_samples = size(labeled_ex,1);
 if ~isstring(lam) && ~ischar(lam)
         lam = lam / num_samples;
 end
 %% Train the classifier
 if ~method.balance
-    mdl = fitclinear(dataset.features(labeled_idxs,:), labeled_ex01, ...
+    mdl = fitclinear(features_ex, labeled_ex, ...
             'learner', 'logistic', 'regularization', 'lasso',...
-             'ClassNames', [0, 1], 'Prior', 'empirical','Lambda',lam);
+             'ClassNames', [-1, 1], 'Prior', 'empirical','Lambda',lam);
 else
     % balance the training dataset (2bb stands for to be balanced)
-    dataset_2bb.features = dataset.features(labeled_idxs,:);
-    dataset_2bb.labels   = labeled_ex01;
-    dataset_2bb.labels(dataset_2bb.labels==0) = -1;
+    dataset_2bb.features = features_ex;
+    dataset_2bb.labels   = labeled_ex;
     method.balance_ratio = method.balance_ratio * method.balance_ratio_decay;
     dataset_b = balance_dataset(dataset_2bb, method.balance_ratio); % balanced dataset
-    dataset_b.labels(dataset_b.labels==-1) = 0; % change the class back to binary
     mdl = fitclinear(dataset_b.features, dataset_b.labels, ...
             'learner', 'logistic', 'regularization', 'lasso',...
-             'ClassNames', [0, 1], 'Prior', 'empirical','Lambda',lam);	
+             'ClassNames', [-1, 1], 'Prior', 'empirical','Lambda',lam);	
 end
 
 dataset.mdl = mdl;
-[dataset.labels_ml, dataset.labels_ml_prob] = classify_cells(dataset.mdl, dataset.features, method.cls_threshold);
+[dataset.labels_ml, dataset.labels_ml_prob] = cellfun(@(features_i) classify_cells(dataset.mdl, features_i, method.cls_threshold), dataset.features, 'UniformOutput', false);
 end

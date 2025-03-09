@@ -3,7 +3,8 @@ classdef dataset
     %   Detailed explanation goes here
     
     properties
-        num_datasets % the number of datasets included in this dataset structure
+        num_datasets   % the number of datasets included in this dataset structure
+        num_cells % the number of cell candidates from each dataset
         features  % a cell that include multiple features from different datasets
         labels_ex % a cell that include expert labels from different datasets
         labels_ml % a cell that include classifier's predicted labels for different datasets
@@ -17,10 +18,9 @@ classdef dataset
     
     methods
         function obj = dataset(features_lst, pretrained)
-            assert(obj.num_datasets == numel(features_lst), ...
-                'Assertion failed: obj.num_datasets (%d) does not match numel(features_lst) (%d).', ...
-                obj.num_datasets, numel(features_lst));
-            for i = 1:num_datasets  
+            obj.num_datasets = numel(features_lst);
+            obj.num_cells    = cellfun(@(x) size(x, 1), features_lst, 'UniformOutput', true);
+            for i = 1:obj.num_datasets  
                 features   = features_lst{i};
 
                 N = size(features, 1);
@@ -31,8 +31,8 @@ classdef dataset
                 obj.labels_ml{i}      = matrix; % cell classifier / ML labels
                 obj.labels_ml_prob{i} = matrix; % probability associated with ml_labels of being a cell      
             end
-            obj.q_idx_lst      = [NaN, NaN]; % query cells indices (based on the EXTRACT output indices)
-            obj.sorting_order  = [NaN, NaN];
+            obj.q_idx_lst      = []; % query cells indices (based on the EXTRACT output indices)
+            obj.sorting_order  = [];
             obj.pretrained     = pretrained;
 
             if isempty(pretrained)
@@ -47,15 +47,16 @@ classdef dataset
         end
 
         function obj = update_sorting_order(obj, q_idxs)
-            cell_idx    = q_idxs(1);
-            dataset_idx = q_idxs(2);
             order = obj.sorting_order(:,:);  % Ensure sorting_order is a row vector
-            row_to_find = [dataset_idx, cell_idx];
-            is_row_present = ismember(order', row_to_find', 'rows');
-            if any(is_row_present)
-                obj.order(:, is_row_present) = []; % Remove the row
+            row_to_find = q_idxs;
+            if ~isempty(order)
+                is_row_present = ismember(order, row_to_find, 'rows');
+                if any(is_row_present)
+                    fprintf('[INFO] Cell %i in Dataset %i has been sorted.\n', q_idxs(2), q_idxs(1))
+                    obj.order(:, is_row_present) = []; % Remove the row
+                end
             end
-            order = [order, row_to_find'];
+            order = [order; row_to_find];
             obj.sorting_order = order;  
         end
 

@@ -5,16 +5,25 @@ function [q_idxs, scores] = strategy_dal(dataset, n)
 % Update the [dataset] with [dataset.labeled_idxs]
 	
 %% Query
-unlabeled_idxs = find(dataset.labels_ex == 0);
+N_lst = dataset.num_cells;
+data_mask = repelem(1:numel(N_lst), N_lst)';
+cell_mask = arrayfun(@(N) 1:N, N_lst, 'UniformOutput', false);
+cell_mask = horzcat(cell_mask{:})';
+
+features = vertcat(dataset.features{:});
+labels_ex = vertcat(dataset.labels_ex{:});
+
+unlabeled_idxs = find(labels_ex == 0);
 if isempty(unlabeled_idxs) % Return NaN if all the cells are sorted
     scores = ones(1, n);
     q_idxs = NaN;
     return
 end
-labeled_idxs   = (dataset.labels_ex ~= 0);
+
+labeled_idxs   = (labels_ex ~= 0);
 % train binary classifier
-Xbc = dataset.features;
-ybc = (labeled_idxs);
+Xbc = features;
+ybc = labeled_idxs;
 % Balance the set
 
 idx = find(ybc == 1);
@@ -34,8 +43,16 @@ bc_mdl = fitclinear(X_train, y_train, ...
         'Learner', 'logistic', 'regularization', 'lasso',...
         'ClassNames', [0, 1], 'Prior', 'empirical');		
 % select
-[~, probs] = predict(bc_mdl, dataset.features(unlabeled_idxs,:));
+[~, probs] = predict(bc_mdl, features(unlabeled_idxs,:));
 [sortedValues, sortedIndices] = sort(probs(:,2), 'ascend');
-q_idxs = unlabeled_idxs(sortedIndices(1:n));
+
+unlabeled_idxs = unlabeled_idxs(sortedIndices(1:n));
+unlabeled_data_idxs = data_mask(unlabeled_idxs)';
+unlabeled_cell_idxs = cell_mask(unlabeled_idxs)';
+
+q_idxs = zeros(n, 2);
+q_idxs(:,1) = unlabeled_data_idxs;
+q_idxs(:,2) = unlabeled_cell_idxs;
+
 scores = sortedValues(1:n);
 end

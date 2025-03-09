@@ -38,7 +38,7 @@ method_name = method.name;
 % Start using the query algorithm until at least 3 good cells and 3 bad cells are 
 % annotated. Otherwise, use random as the query algorithm.
 
-THRESHOLD = 5; % number of cells to annotate before AL query algorithm
+THRESHOLD = 3; % number of cells to annotate before AL query algorithm
 labels_ex_all = vertcat(dataset.labels_ex{:});
 num_good_cells = sum(labels_ex_all==1);
 num_bad_cells =  sum(labels_ex_all==-1);

@@ -1,182 +1,131 @@
-% This is a demo file. It shows the general idea of the pipeline
 clear;clc;
 
 rng(54135)
 
-load('yang_m1_features.mat')
-load('yang_m1_mbp_labels.mat')
+features  = cell(1, 3);
+labels    = cell(1, 3);
+labels_gt = cell(1, 3);
 
-features  = metrics';
-labels_gt = choices';
-clear metics choices;
+load('m1_hemisphere.mat')
+features{1}  = metrics';
+labels{1} = koala_choices';
+combinedChoices = [guinea_pig_choices; lion_choices; panda_choices];
+labels_gt{1} = mode(combinedChoices, 1)';
+clear metrics koala_choices guinea_pig_choices lion_choices panda_choices;
 
-N = size(features, 1);
+load('m2_hemisphere.mat')
+features{2}  = metrics';
+labels{2} = dragon_choices';
+combinedChoices = [guinea_pig_choices; lion_choices; panda_choices];
+labels_gt{2} = mode(combinedChoices, 1)';
+clear metrics guinea_pig_choices dragon_choices lion_choices panda_choices;
 
-config.DO_ZSCORING = true;
-config.n = 1;
-methods = {'random', 'cal', 'algo-rank', 'dal','multi-arm', 'dcal'};
-colors  = {"#A2142F", "#7E2F8E", "#0072BD", "#EDB120", "#77AC30", "#FF00FF"};
-n = config.n;
+load('m3_hemisphere.mat')
+features{3}  = metrics';
+labels{3} = koala_choices';
+combinedChoices = [cheetah_choices; guinea_pig_choices; lion_choices];
+labels_gt{3} = mode(combinedChoices, 1)';
+clear metrics cheetah_choices guinea_pig_choices koala_choices lion_choices;
+clear combinedChoices;
 
-stop_cell = round(ratio*num_cells);
+method_lst = {'random', 'algo-rank', 'dal', 'cal', 'dcal-0.3', 'dcal-0.5', 'dcal-0.7'};
 
-for k=1:length(methods)
-    method = methods{k}
-
-    dataset = initialization(features, config);
-%     q_idxs  = step(dataset, n, nan, 'random');
-%     dataset.labels_ex(q_idxs) = labels_gt(q_idxs);
-    %%%%%%%%%%%%%%%%
-    %%% multi-arm bandit algorithm
-    dataset.wt = ones(N,1);
-    dataset.gamma = 0.6;
-    dataset.reward_func = @(tp, tn, fp, fn) ((0.3*(tp / (tp + fn)) + 0.7*(tn / (fp + tn))) / 2); % user can define the reward function in multi-arm bandit
-    %%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%
-    %%% dcal algorithm
-    [method, dataset] = parse_dcal(method, dataset);
-    %%%%%%%%%%%%%%%%
-    q_iscells = find(labels_gt==1,5);
-    q_nocells = find(labels_gt==-1,5);
-    dataset.labels_ex(q_iscells) = labels_gt(q_iscells);
-    dataset.labels_ex(q_nocells) = labels_gt(q_nocells);
-
-    [dataset, mdl] = train_classifier(dataset);
-
-    accs    = [];
-    accs_tp = [];
-    accs_tn = [];
-    precisions = [];
-    recalls    = [];
-    fscores    = [];
-
-    prev_labels_ml = dataset.labels_ml;
-%     sc_sps   = [];
-% %     prev_scores = 0;
-% %     sc_grads = [];
-%     sc_ous = [];
-    for i=11:600
-        if mod(i, 100)==0
-            i
-        end
-        % select next data to be labeled
-        [q_idxs, scores, dataset] = step_al(dataset, n, mdl, method);
-        % label the data
-        label = labels_gt(q_idxs);
-        % add the label to the training dataset
-        dataset = annotate(dataset, q_idxs, label);
-        % train the classifier
-        [dataset, mdl] = train_classifier(dataset);
+eval_lst = cell(1, length(method_lst));
+for k=1:length(method_lst)
+    config.zscore = true;
+    config.n = 1;
+    method_name = method_lst{k};
+    [config] = parse_method_name(method_name, config);
+    
+    
+    [dataset, method] = initialization(features, config);
+    
+    %% Initialize cell classifier
+    for i=1:dataset.num_datasets
+        labels_1_indices = find(labels{i} == 1);
+        labels_minus1_indices = find(labels{i} == -1);
+        q_iscells = randsample(labels_1_indices, 3);
+        q_nocells = randsample(labels_minus1_indices, 3);
+        dataset.labels_ex{i}(q_iscells) = labels{i}(q_iscells);
+        dataset.labels_ex{i}(q_nocells) = labels{i}(q_nocells);
         
-        % stopping criteria SP
-%         curr_labels_ml = dataset.labels_ml;
-%         agreement      = sc_sp(curr_labels_ml, prev_labels_ml);
-%         sc_sps         = [sc_sps, agreement];
-%         prev_labels_ml = curr_labels_ml;
-%         % stopping criteria GRAD
-% %         curr_scores = scores;
-% %         grad        = sc_grad(curr_scores, prev_scores);
-% %         sc_grads    = [sc_grads, grad];
-% %         prev_scores = curr_scores;
-%         % stopping criteria OU
-%         curr_labels_ml_prob = dataset.labels_ml_prob;
-%         ou = sc_ou(curr_labels_ml_prob);
-%         sc_ous = [sc_ous, ou];
-
-        eval_metrics = get_accuracy(dataset, labels_gt);
-        accs    = [accs,eval_metrics.ACC];
-        accs_tp = [accs_tp, eval_metrics.TPR];
-        accs_tn = [accs_tn, eval_metrics.TNR];
-        precisions = [precisions, eval_metrics.Precision];
-        recalls    = [recalls, eval_metrics.Recall];
-        fscores    = [fscores, eval_metrics.Fscore];
+        q_idxs_iscells = [i * ones(numel(q_iscells), 1), q_iscells];
+        q_idxs_nocells = [i * ones(numel(q_nocells), 1), q_nocells];
+        dataset.q_idx_lst = [dataset.q_idx_lst; q_idxs_iscells; q_idxs_nocells];
     end
-%     sc_sps_smoothed   = smoothdata(sc_sps, 'movmean', 20);
-% %     sc_grads_smoothed = sc_grads;
-%     sc_ous_smoothed   = smoothdata(sc_ous, 'movmean', 20);
-%     
-    color = colors{k};
-    figure(1)
-    plot(accs, 'LineWidth',2, 'Color',color, 'DisplayName',method)
-    hold on
-%     plot(sc_ous_smoothed, 'LineWidth',2, 'LineStyle',':', 'Color',color, 'DisplayName',['SC-SP-',method])
-%     hold on
-    figure(2)
-    plot(accs_tp, 'LineWidth',2,'Color',color, 'DisplayName',method)
-    hold on
-    figure(3)
-    plot(accs_tn, 'LineWidth',2,'Color',color, 'DisplayName',method)
-    hold on
-    figure(4)
-    plot(precisions, 'LineWidth',2,'Color',color, 'DisplayName',method)
-    hold on
-%     plot(sc_ous_smoothed, 'LineWidth',2, 'LineStyle',':', 'Color',color, 'DisplayName',['SC-SP-',method])
-%     hold on
-    figure(5)
-    plot(recalls, 'LineWidth',2,'Color',color, 'DisplayName',method)
-    hold on
-%     plot(sc_ous_smoothed, 'LineWidth',2, 'LineStyle',':', 'Color',color, 'DisplayName',['SC-SP-',method])
-%     hold on
-    figure(6)
-    plot(fscores, 'LineWidth',2,'Color',color, 'DisplayName',method)
-    hold on
-%     plot(sc_ous_smoothed, 'LineWidth',2, 'LineStyle',':', 'Color',color, 'DisplayName',['SC-SP-',method])
-%     hold on
-end
-figure(1)
-title('Accuracy')
-xlabel('# of cells')
-hold off
-legend()
-figure(2)
-title('True Positive Rate')
-xlabel('# of cells')
-hold off
-legend()
-figure(3)
-title('True Negative Rate')
-xlabel('# of cells')
-hold off
-legend()
-figure(4)
-title('Precision')
-xlabel('# of cells')
-hold off
-legend()
-figure(5)
-title('Recall')
-xlabel('# of cells')
-hold off 
-legend()
-figure(6)
-title('F score')
-xlabel('# of cells')
-hold off
-legend()
-function [method, dataset] = parse_dcal(method, dataset)
-    parts = split(method, "-");
-    if strcmpi(parts(1), "dcal")
-        dataset.weight = str2double(parts(2));
-        method = "dcal";
+    
+    % Train the classifier after initialization
+    [dataset, method] = train_classifier(dataset, method);
+    
+    %% Start Active Learning
+    num_cells = sum(cellfun(@(x) size(x, 1), dataset.features, 'UniformOutput', true));
+    ratio = 0.05;
+    stop_cell = floor(ratio*num_cells);
+    p1percent_cell = floor(0.001*num_cells);
+    
+    eval_metrics = init_eval_metrics();
+    
+    for i=1:stop_cell
+        [q_idxs, scores, dataset] = step_al(dataset, method);
+        data_id = q_idxs(1);
+        cell_id = q_idxs(2);
+        label = labels{data_id}(cell_id);
+        dataset = annotate(dataset, q_idxs, label);
+        [dataset, method] = train_classifier(dataset,method);
+        if i==1 || mod(i, p1percent_cell) == 0
+            eval_metrics = get_accuracy(dataset, labels_gt, eval_metrics);
+        end
     end
+    eval_lst{k} = eval_metrics;
 end
-function [eval_metrics] = get_accuracy(dataset, labels_gt)
-unlabeled_idxs = find(dataset.labels_ex==0);
-labels_exml = dataset.labels_ex(:);
-labels_exml(unlabeled_idxs) = dataset.labels_ml(unlabeled_idxs);
-
-eval_metrics.ACC = mean(labels_exml == labels_gt);
-eval_metrics.TPR = mean(labels_exml(labels_gt==1) == 1);
-eval_metrics.TNR = mean(labels_exml(labels_gt==-1) == -1);
-
-TP = sum(labels_exml(labels_gt==1) == 1);
-FP = sum(labels_exml(labels_gt==-1) == 1);
-TN = sum(labels_exml(labels_gt==-1) == -1);
-FN = sum(labels_exml(labels_gt==1) == -1);
-P = sum(labels_gt==1);
-N = sum(labels_gt==-1);
-
-eval_metrics.Precision = TP / (TP + FP);
-eval_metrics.Recall    = TP / (TP + FN);
-eval_metrics.Fscore    = 2*TP / (2*TP + FP + FN);
+%% baseline 
+labels_gt_all = vertcat(labels_gt{:});
+labels_all    = vertcat(labels{:});
+TPR = mean(labels_all(labels_gt_all==1) == 1);
+TNR = mean(labels_all(labels_gt_all==-1) == -1);
+ACC = (TPR + TNR) / 2;
+%% plot evaluation for each method
+color_map = [0,      0.4470, 0.7410; % blue
+             0.8500, 0.3250, 0.0980; % orange
+             0.9290, 0.6940, 0.1250; % yellow
+             0.4940, 0.1840, 0.5560; % purple
+             0.4660, 0.6740, 0.1880; % green
+             0.6350, 0.0780, 0.1840; % red
+             0.3010 0.7450 0.9330];  % light blue
+for k=1:length(method_lst)
+    method_name = method_lst{k};
+    eval_metrics = eval_lst{k};
+    H = length(eval_metrics.ACC);
+    % plot ACC
+    subplot(1,3,1)
+    plot(eval_metrics.ACC, 'DisplayName',method_name, 'Color',color_map(k,:), 'LineStyle','-', 'LineWidth',2)
+    hold on
+    legend() 
+    ylabel('Accuracy')
+    xlabel('Percentage')
+    % plot TPR 
+    subplot(1,3,2)
+    plot(eval_metrics.TPR, 'DisplayName',method_name, 'Color',color_map(k,:), 'LineStyle','-', 'LineWidth',2)
+    hold on
+    legend() 
+    ylabel('True Positive Rate')
+    xlabel('Percentage')
+    % plot TNR
+    subplot(1,3,3)
+    plot(eval_metrics.TNR, 'DisplayName',method_name, 'Color',color_map(k,:), 'LineStyle','-', 'LineWidth',2)
+    hold on
+    legend() 
+    ylabel('True Negative Rate')
+    xlabel('Percentage')
 end
+subplot(1,3,1)
+line([1, H], [ACC, ACC], 'Color', 'k', 'LineStyle', '--', 'DisplayName', 'human', 'LineWidth', 0.5);
+hold off
+
+subplot(1,3,2)
+line([1, H], [TPR, TPR], 'Color', 'k', 'LineStyle', '--', 'DisplayName', 'human', 'LineWidth', 0.5);
+hold off
+
+subplot(1,3,3)
+line([1, H], [TNR, TNR], 'Color', 'k', 'LineStyle', '--', 'DisplayName', 'human', 'LineWidth', 0.5);
+hold off
