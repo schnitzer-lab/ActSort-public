@@ -36,4 +36,6 @@ ActSort code is written and maintained by the current members of Schnitzerlab. I
 ## Citations
 For details of implementation, please see this [paper]([https://www.biorxiv.org/content/10.1101/2024.08.21.609011v1.abstract](https://proceedings.neurips.cc/paper_files/paper/2024/file/90080022263cddafddd4a0726f1fb186-Paper-Conference.pdf))
 
-Jiang, Y., Akengin, H. O., Zhou, J., Aslihak, M. A., Li, Y., Hernandez, O., ... & Dinc, F., Blanco-Pozo, M., Schnitzer, M. J. (2024). ActSort: An active-learning accelerated cell sorting algorithm for large-scale calcium imaging datasets. bioRxiv, 2024-08.
+Jiang, Y., Akengin, H. O., Zhou, J., Aslihak, M. A., Li, Y., Hernandez, O., ... & Dinc, F., Blanco-Pozo, M., Schnitzer, M. J. (2024). ActSort: An active-learning accelerated cell sorting algorithm for large-scale calcium imaging datasets. bioRxiv, 2024-08. (Published in NeurIPS 2024)
+
+
