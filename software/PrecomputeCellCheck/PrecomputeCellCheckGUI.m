@@ -4,7 +4,7 @@ function PrecomputeCellCheckGUI
     % for calling PrecomputeCellCheck.
     %
     % Usage:
-    %   PrecomputeActSortTool
+    %   PrecomputeCellCheckGUI
 
     % State storage
     S.jobQueue = struct('h5', {}, 'mat', {}, 'output', {}, ...
@@ -13,7 +13,7 @@ function PrecomputeCellCheckGUI
     S.selectedJobIndex = [];
     
     % Create main figure
-    S.fig = uifigure('Name','PrecomputeActSortTool','Position',[100 100 420 520]);
+    S.fig = uifigure('Name','PrecomputeCellCheckGUI','Position',[100 100 420 520]);
 
     % Create tab group
     S.TabGroup = uitabgroup(S.fig,'Position',[1 1 420 520]);
