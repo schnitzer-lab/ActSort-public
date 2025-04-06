@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.apptool" plugin-version="1.0">
-  <configuration build-checksum="441924019" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
+  <configuration build-checksum="1378149356" file="/Users/orhunakengin/Desktop/Research/ActSort-public/software/ActSort.prj" location="/Users/orhunakengin/Desktop/Research/ActSort-public/software" name="ActSort" target="target.mlapps" target-name="Package App">
     <param.appname>ActSort</param.appname>
     <param.authnamewatermark>Hakki Orhun Akengin</param.authnamewatermark>
     <param.email>akengin@stanford.edu</param.email>
@@ -12,8 +12,8 @@
     </param.icons>
     <param.summary>Sort and label your cells!</param.summary>
     <param.description>This app is created to sort the output cells of EXTRACT, an automated cell extraction tool for calcium imaging, which extracts the activities of cells from both one-photon and two-photon calcium imaging movies.</param.description>
-    <param.screenshot>/private/var/folders/9g/y1wp205s71q93fzw3ys47ltm0000gn/T/tp238c5199_bc61_4abf_b7f2_b794ab0988ce.png</param.screenshot>
-    <param.version>1.15</param.version>
+    <param.screenshot />
+    <param.version>1.16</param.version>
     <param.products.name />
     <param.products.id />
     <param.products.version />
@@ -22,6 +22,7 @@
     <param.guid>ff534a09-6896-4bca-9721-3698dd8ce450</param.guid>
     <unset>
       <param.company />
+      <param.screenshot />
       <param.products.name />
       <param.products.id />
       <param.products.version />
@@ -47,85 +48,11 @@
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/step_al.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/train_classifier.m</file>
       <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/active_learning_codebase/utils/balance_dataset.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/calculate_spurious_cells_metrics.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_cell_epsilon.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_event_metrics.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_spat_corruption.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/compute_temporal_goodness.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/create_features.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/estimate_noise_std.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/extract_events_nonexponential.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/filter_images.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_avg_pix_vals.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_cell_circumference.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_edge_distances.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_spurious_cells.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_temporal_features.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/find_trace_std.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/fourier_features.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_active_frames.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_areas.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_circularity_metrics.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_free_mem.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_tqm_metric.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_trace_noise.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/get_trace_snr.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/has_multiple_bodies.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/max_positive_correlation.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/maybe_gpu.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/ndSparse.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/normalize_to_one.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/parse_precomputed_output.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/peakseek.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/replace_infs_with_zeros.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/replace_nans_with_mean.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/select_indices.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/smooth_images.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/spike_fluorescence.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/temporal_corruption.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_estimators/eps_func.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_estimators/kappa_of_epsilon.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_estimators/solve_single_source_temporal.m</file>
-      <file>/Users/orhunakengin/Desktop/Research/ActSort-public/AL-code/feature_engineering/trace_similarity.m</file>
       <file>${PROJECT_ROOT}/ActSort_resources/icon-fa-hand-pointer-o.png</file>
       <file>${PROJECT_ROOT}/ActSort_resources/icon-mat-select-all.png</file>
       <file>${PROJECT_ROOT}/ActSort_resources/icon-mat-zoom-in.png</file>
       <file>${PROJECT_ROOT}/ActSort_resources/icon-mat-zoom-out.png</file>
       <file>${PROJECT_ROOT}/ActSort_resources/ss.png</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/PrecomputeCellCheck.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/ask_for_dataset.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/capture_snapshots_from_memory.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/capture_snapshots_in_chunks.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/compute_clims.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/compute_snapshot_clims.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/create_max_im_in_chunks.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/downsample_time.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/extract_dataset.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/findField.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_boundary.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_cell_boundaries.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_cell_centers.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_center.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_limits.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_neighbor_boundaries.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_neighbor_idxs.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_neighbors.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_snapshot_cell_boundaries.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_snapshot_filters.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_snapshot_traces.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_spike_indices.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_spikes.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/find_viewing_limits.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/get_features.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/get_system_info.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/parse_dataset_info.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/parse_dataset_names.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/parse_extract_output.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/raise_alert.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/set_trace_event_interval.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/shift_traces_to_positive.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/update_neighbor_boundaries.m</file>
-      <file>${PROJECT_ROOT}/PrecomputeCellCheck/helper_functions/update_progress.m</file>
       <file>${PROJECT_ROOT}/helper_functions/adjust_constrast_value.m</file>
       <file>${PROJECT_ROOT}/helper_functions/brewermap.m</file>
       <file>${PROJECT_ROOT}/helper_functions/calculate_zoom_limits.m</file>
@@ -133,7 +60,6 @@
       <file>${PROJECT_ROOT}/helper_functions/classes/session.m</file>
       <file>${PROJECT_ROOT}/helper_functions/clear_axes.m</file>
       <file>${PROJECT_ROOT}/helper_functions/create_alpha_mask.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/create_info_struct.m</file>
       <file>${PROJECT_ROOT}/helper_functions/draw_snapshot_boundaries.m</file>
       <file>${PROJECT_ROOT}/helper_functions/draw_snapshot_neighbor_boundaries.m</file>
       <file>${PROJECT_ROOT}/helper_functions/find_zoomed_traces.m</file>
@@ -143,11 +69,11 @@
       <file>${PROJECT_ROOT}/helper_functions/is_in_range.m</file>
       <file>${PROJECT_ROOT}/helper_functions/is_in_screen_limits.m</file>
       <file>${PROJECT_ROOT}/helper_functions/menu/load_pretrained_dataset.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/menu/open_load_labels_menu.m</file>
+      <file>${PROJECT_ROOT}/helper_functions/open_load_datasets_menu.m</file>
+      <file>${PROJECT_ROOT}/helper_functions/open_load_labels_menu.m</file>
       <file>${PROJECT_ROOT}/helper_functions/plot_bar_rectangle.m</file>
       <file>${PROJECT_ROOT}/helper_functions/plot_spike_nums.m</file>
       <file>${PROJECT_ROOT}/helper_functions/remove_nans.m</file>
-      <file>${PROJECT_ROOT}/helper_functions/set_previous_cell.m</file>
       <file>${PROJECT_ROOT}/helper_functions/set_trace_axis_lims.m</file>
       <file>${PROJECT_ROOT}/helper_functions/update_enable_state.m</file>
       <file>${PROJECT_ROOT}/helper_functions/update_model.m</file>
@@ -159,39 +85,8 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>/Applications/MATLAB_R2021b.app</root>
-      <toolboxes>
-        <toolbox name="matlabcoder" />
-        <toolbox name="embeddedcoder" />
-        <toolbox name="fixedpoint" />
-        <toolbox name="matlabhdlcoder" />
-        <toolbox name="neuralnetwork" />
-      </toolboxes>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
-      <toolbox>
-        <embeddedcoder>
-          <enabled>true</enabled>
-        </embeddedcoder>
-      </toolbox>
-      <toolbox>
-        <fixedpoint>
-          <enabled>true</enabled>
-        </fixedpoint>
-      </toolbox>
-      <toolbox>
-        <matlabhdlcoder>
-          <enabled>true</enabled>
-        </matlabhdlcoder>
-      </toolbox>
-      <toolbox>
-        <neuralnetwork>
-          <enabled>true</enabled>
-        </neuralnetwork>
-      </toolbox>
+      <root>/Applications/MATLAB_R2023b.app</root>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>true</unix>
@@ -203,8 +98,8 @@
       <linux>false</linux>
       <solaris>false</solaris>
       <osver>15.0.1</osver>
-      <os32>false</os32>
-      <os64>true</os64>
+      <os32>true</os32>
+      <os64>false</os64>
       <arch>maci64</arch>
       <matlab>true</matlab>
     </platform>

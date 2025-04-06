@@ -19,21 +19,22 @@ classdef session
         % VARIABLES
         H                            cell %single
         W                            cell %single
-        numCells                     cell %single  
+        numCells                     cell %single 
+        numDatasets                  int8
         cellLabels                   cell %int8
 
         % Info variables
         NUM_LABELING                 single
         TOTAL_TIME_SORTED            single
-        precomputed_file_name        cell %string
+        precomputed_file_names       cell 
     end
     
     methods
         function obj = session(precomputedOutputs)
             %SESSION Construct an instance of this class
-            
-            for i = 1:length(precomputedOutputs)
-                precomputedOutput = precomputedOutputs(i);
+            obj.numDatasets = numel(precomputedOutputs);
+            for i = 1:obj.numDatasets
+                precomputedOutput = precomputedOutputs{i};
                 % Extract variables from precomputedOutput
                 obj.spatial_weights{i} = precomputedOutput.spatial_weights;
                 obj.traces{i} = precomputedOutput.traces;
@@ -66,15 +67,13 @@ classdef session
             obj.TOTAL_TIME_SORTED = obj.TOTAL_TIME_SORTED + time_elapsed;
         end
 
-        function obj = update_labels(obj, datasets, predict_cells)
-            for i = 1:len(datasets)
-                dataset = datasets{i};
-                if predict_cells
-                    obj.cellLabels{i} = predict_rest(dataset);
-                else
-                    obj.cellLabels{i} = dataset.labels_ex;
-                end
+        function obj = update_labels(obj, dataset, predict_cells)
+            if predict_cells
+                newLabels = predict_rest(dataset);
+            else
+                newLabels = dataset.labels_ex;
             end
+            obj.cellLabels = newLabels;
         end
 
         % Extracts and updates the display of cell boundaries
@@ -89,7 +88,7 @@ classdef session
         end
 
         % Counts the number of spikes for the selected cell
-        function numSpikes = get_num_spikes(obj, cell_idx, datasetIdx)
+        function numSpikes = get_num_spikes(obj, datasetIdx, cell_idx)
             spikeIndices = obj.spikeIdxs{datasetIdx}(:, cell_idx);
             numSpikes = numel(remove_nans(spikeIndices));
         end

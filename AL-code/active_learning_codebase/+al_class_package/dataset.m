@@ -42,10 +42,6 @@ classdef dataset
             end
         end
 
-        function obj = add_info(obj, info_struct)
-            obj.INFO = info_struct;
-        end
-
         function obj = update_sorting_order(obj, q_idxs)
             order = obj.sorting_order(:,:);  % Ensure sorting_order is a row vector
             row_to_find = q_idxs;
@@ -53,7 +49,7 @@ classdef dataset
                 is_row_present = ismember(order, row_to_find, 'rows');
                 if any(is_row_present)
                     fprintf('[INFO] Cell %i in Dataset %i has been sorted.\n', q_idxs(2), q_idxs(1))
-                    obj.order(:, is_row_present) = []; % Remove the row
+                    obj.sorting_order(is_row_present, :) = []; % Remove the row
                 end
             end
             order = [order; row_to_find];

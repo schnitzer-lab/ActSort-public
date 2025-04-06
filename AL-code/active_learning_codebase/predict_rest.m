@@ -12,7 +12,7 @@ function [labels, stats] = predict_rest(dataset)
 %  [stats]  : a cell of stats for each dataset, including the # of sorted 
 %             good cells, # of sorted bad cells, and the # of unlabeled
 %             cells in each individual datasets_i. 
-labels       = cell(1, dataset.num_datasets);
+labels     = cell(1, dataset.num_datasets);
 stats      = cell(1, dataset.num_datasets);
 
 for i=1:dataset.num_datasets

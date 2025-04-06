@@ -1,25 +1,20 @@
-function [dataset_idx, cell_idx] = go_next_sorted_cell(sorting_order, dataset_idx, cell_idx)
-    % Move along the already sorted cells
-    % Enforce and assume that current_cell is never the last cell in sorting_order!!
+function [dataset_idx, cell_idx] = go_next_sorted_cell(sorting_order, current_cell)
+    % Move to the next cell in the full sorting_order list
+    % Assumes current_cell = [dataset_idx, cell_idx]
+    % and that this cell exists in sorting_order and is not the last one.
 
-    % Filter the sorting order for the given dataset_idx
-    filtered_sorting_order = sorting_order(sorting_order(:,1) == dataset_idx, :);
+    % Find the row matching the current cell
+    match_idx = find(ismember(sorting_order, current_cell, 'rows'), 1);
 
-    % Find the logical index where the current cell is located
-    logical_idx = (filtered_sorting_order(:,2) == cell_idx);
-
-    if ~any(logical_idx)
+    if isempty(match_idx)
         error('Current cell not found in sorting_order');
     end
-    
-    % Convert logical index to numeric index
-    currentIdx = find(logical_idx, 1);
 
-    if currentIdx == size(filtered_sorting_order, 1)
+    if match_idx == size(sorting_order, 1)
         error('Current cell is the last cell in sorting_order');
     end
 
-    % Get the next sorted cell
-    dataset_idx = filtered_sorting_order(currentIdx + 1, 1);
-    cell_idx = filtered_sorting_order(currentIdx + 1, 2);
+    % Get the next cell in sorting_order
+    dataset_idx = sorting_order(match_idx + 1, 1);
+    cell_idx    = sorting_order(match_idx + 1, 2);
 end

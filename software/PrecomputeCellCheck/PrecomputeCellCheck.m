@@ -26,6 +26,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     p = inputParser;
     addRequired(p, 'matfile_path', @(x) (ischar(x) || isstring(x)));
     addRequired(p, 'movie_path', @(x) (ischar(x) || isstring(x)));
+    addParameter(p, 'output_path', "", @(x) (ischar(x) || isstring(x)));
     addParameter(p, 'parallel', true, @islogical);
     addParameter(p, 'dt', 1, @isnumeric);
     addParameter(p, 'fast_features', false, @islogical);
@@ -35,6 +36,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     parse(p, matfile_path, h5file_path, varargin{:});
     
     % Parse input arguments
+    output_path = p.Results.output_path;
     parallel = p.Results.parallel;
     dt = p.Results.dt;
     progressDlg = p.Results.progressDlg;
@@ -329,7 +331,23 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     precomputedOutput.INFO = INFO;  
 
     % STEP 18: Save the output structure as .m file
-    newFileName = "precomputed_" + strcat(mat_file_name, mat_file_ext);
+    if strlength(output_path) > 0
+        [~, ~, ext] = fileparts(output_path);
+        
+        if strcmp(ext, '.mat')
+            newFileName = output_path;
+            
+        elseif isfolder(output_path)
+            defaultName = "precomputed_" + strcat(mat_file_name, mat_file_ext);
+            newFileName = fullfile(output_path, defaultName);
+            
+        else
+            % Not a .mat file or folder, fallback to default name
+            newFileName = "precomputed_" + strcat(mat_file_name, mat_file_ext);
+        end
+    else
+        newFileName = "precomputed_" + strcat(mat_file_name, mat_file_ext);
+    end
     save(newFileName, 'precomputedOutput', '-v7.3');
 
     update_progress("Sorting file created!", 1, progressDlg)
