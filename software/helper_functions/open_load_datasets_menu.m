@@ -90,16 +90,23 @@ function result = open_load_datasets_menu()
 
     function addPrecomputedFile()
         old_states = disableControls(COMPONENTS_TO_HANDLE);
-        [file, path] = uigetfile('*.mat', 'Select a precomputed file');
+        [files, path] = uigetfile('*.mat', 'Select precomputed files', 'Multiselect', 'on');
         restoreControls(COMPONENTS_TO_HANDLE, old_states);
-        if isequal(file, 0)
+        if isequal(files, 0)
             return;
         end
-        fullPath = fullfile(path, file);
-        % Only add if not already in the list
-        if ~ismember(fullPath, precomputedFilePaths)
-            precomputedFilePaths{end+1} = fullPath; %#ok<AGROW>
+    
+        if ischar(files)
+            files = {files};  % standardize to cell array when selecting only one file
         end
+    
+        for i = 1:numel(files)
+            fullPath = fullfile(path, files{i});
+            if ~ismember(fullPath, precomputedFilePaths)
+                precomputedFilePaths{end+1} = fullPath;
+            end
+        end
+    
         refreshPrecomputedPathsDisplay();
     end
 
