@@ -1,6 +1,6 @@
 function [dataset, method] = initialization(features, config, pretrained)
 % INPUT
-%   [features] N x d.
+%   [features] cell of N x d.
 %   [config]   configuration object
 %   [pretrained]   pretrained dataset (optional). Speficied if fine-tuning.
 %
@@ -10,7 +10,7 @@ function [dataset, method] = initialization(features, config, pretrained)
 
 %% Initialize the dataset and method
 if config.zscore
-    features = zscore(features, 0, 1);
+    features = cellfun(@(x) zscore(x, 0, 1), features, 'UniformOutput', false);
 end
 
 if isstruct(config)

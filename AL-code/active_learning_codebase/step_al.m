@@ -3,14 +3,14 @@ function [q_idxs, scores, dataset] = step_al(dataset, method)
 % the AL algorithm [method]
 % INPUT:
 %   [dataset] a structure that contain fields
-%       - features       : N x d.
-%       - labels_ex      : N x 1 human / expert labels.
-%       - labels_ml      : N x 1 cell classifier / ML labels .
-%       - labels_ml_probs: N x 1 ML labels corresponding probablities being
+%       - features       : Cell of N x d.
+%       - labels_ex      : Cell of N x 1 human / expert labels.
+%       - labels_ml      : Cell of N x 1 cell classifier / ML labels .
+%       - labels_ml_probs: Cell of N x 1 ML labels corresponding probablities being
 %                          a cell predicted by mdl.
-%       - q_idx_lst      : the query list of selected annotated cell
+%       - q_idx_lst      : The query list of selected annotated cell
 %                          indices.
-%       - mdl            : the classifier.
+%       - mdl            : The classifier.
 %   [method] the active learning query method
 %       - name     : query algorithm name ['random', 'cal', 'dal', 'dcal']
 %       - weight   : (required only when using dcal)
@@ -38,9 +38,10 @@ method_name = method.name;
 % Start using the query algorithm until at least 3 good cells and 3 bad cells are 
 % annotated. Otherwise, use random as the query algorithm.
 
-THRESHOLD = 5; % number of cells to annotate before AL query algorithm
-num_good_cells = sum(dataset.labels_ex==1);
-num_bad_cells =  sum(dataset.labels_ex==-1);
+THRESHOLD = 3; % number of cells to annotate before AL query algorithm
+labels_ex_all = vertcat(dataset.labels_ex{:});
+num_good_cells = sum(labels_ex_all==1);
+num_bad_cells =  sum(labels_ex_all==-1);
 num_sorted_cells = num_good_cells + num_bad_cells;
 
 if (num_good_cells<THRESHOLD || num_bad_cells<THRESHOLD)
@@ -66,4 +67,4 @@ switch method_name
         [q_idxs, scores] = strategy_dcal(dataset, n, dataset.mdl, method.weight);
 end
 
-dataset.q_idx_lst = [dataset.q_idx_lst, q_idxs];
+dataset.q_idx_lst = [dataset.q_idx_lst; q_idxs];
