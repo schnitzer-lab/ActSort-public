@@ -28,7 +28,7 @@ function [dataset, method] = train_classifier(dataset, method)
 % OUTPUT:
 %   [dataset] : modify the labeld_ml field in the input dataset
 %   [method]  : the cell classifier, a logistic regression model
-%% Ready for logistic regression (classes as 0 and 1)
+%% Ready for logistic regression (classes as -1 and 1)
 
 labeled_idxs_cell = cellfun(@(x) find(x ~= 0), dataset.labels_ex, 'UniformOutput', false);
 labeled_ex_cell   = cellfun(@(labels_ex, labeled_idxs) labels_ex(labeled_idxs), dataset.labels_ex, labeled_idxs_cell, 'UniformOutput', false);

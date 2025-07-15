@@ -32,6 +32,7 @@ method_lst = {'random', 'algo-rank', 'dal', 'cal', 'dcal-0.3', 'dcal-0.5', 'dcal
 
 eval_lst = cell(1, length(method_lst));
 for k=1:length(method_lst)
+    fprintf("Running method %s", method_lst{k})
     config.zscore = true;
     config.n = 1;
     method_name = method_lst{k};
