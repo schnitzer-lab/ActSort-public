@@ -8,6 +8,7 @@ labels    = cell(1, num_datasets);
 labels_gt = cell(1, num_datasets);
 
 load('m1_hemisphere.mat')
+
 features{1}  = metrics';
 labels{1} = koala_choices';
 combinedChoices = [guinea_pig_choices; lion_choices; panda_choices];
@@ -30,7 +31,9 @@ clear metrics koala_choices guinea_pig_choices lion_choices panda_choices;
 % clear combinedChoices;
 
 method_lst = {'cal'}; % {'random', 'algo-rank', 'dal', 'cal', 'dcal-0.3', 'dcal-0.5', 'dcal-0.7'};
-
+cv_acc_list = [];
+cv_TPR_list = [];
+cv_TNR_list = [];
 eval_lst = cell(1, length(method_lst));
 for k=1:length(method_lst)
     fprintf("Running method %s", method_lst{k})
@@ -76,6 +79,10 @@ for k=1:length(method_lst)
         [dataset, method] = train_classifier(dataset,method);
         if i==1 || mod(i, p1percent_cell) == 0
             eval_metrics = get_accuracy(dataset, labels_gt, eval_metrics);
+            [cv_acc, cv_TPR, cv_TNR] = cross_val_on_labeled(dataset,5);
+            cv_acc_list(end+1) = cv_acc;
+            cv_TPR_list(end+1) = cv_TPR;
+            cv_TNR_list(end+1) = cv_TNR;
             % TODO: Add the stopping criteria function here
             % based on the labeled samples, what is the accuracy. Here you
             % only know labels, you don't have access to labels_gt
@@ -83,7 +90,6 @@ for k=1:length(method_lst)
     end
     eval_lst{k} = eval_metrics;
 end
-
 %% baseline 
 labels_gt_all = vertcat(labels_gt{:});
 labels_all    = vertcat(labels{:});
@@ -135,3 +141,36 @@ hold off
 subplot(1,3,3)
 line([1, H], [TNR, TNR], 'Color', 'k', 'LineStyle', '--', 'DisplayName', 'human', 'LineWidth', 0.5);
 hold off
+
+x_vals = linspace(0, 100 * (stop_cell / num_cells), length(cv_TPR_list));
+
+figure;
+plot(x_vals, cv_TPR_list, 'b-o', 'LineWidth', 2, 'DisplayName', 'CV TPR');
+hold on;
+plot(x_vals, cv_TNR_list, 'r-s', 'LineWidth', 2, 'DisplayName', 'CV TNR');
+xlabel('% of Cells Queried');
+ylabel('Rate');
+ylim([0, 1]);
+title('Cross-Validated TPR and TNR');
+legend('Location', 'best');
+grid on;
+
+figure;
+plot(x_vals, cv_TPR_list, 'b-o', 'LineWidth', 2, 'DisplayName', 'CV TPR');
+hold on;
+plot(x_vals, cv_TNR_list, 'r-s', 'LineWidth', 2, 'DisplayName', 'CV TNR');
+xlabel('Active Learning Cells');
+ylabel('TPR and TNR Rate');
+ylim([0, 1]);
+title('Cross-Validated TPR and TNR');
+legend('Location', 'best');
+grid on;
+
+figure;
+plot(cv_acc_list, 'b-o', 'LineWidth', 2, 'DisplayName', 'CV Balanced Accuracy');
+xlabel('Active Learning Step (every 0.1%)');
+ylabel('Balanced Accuracy');
+title('Cross-Validation Balanced Accuracy Over AL Steps');
+ylim([0, 1]);  % Accuracy from 0 to 1
+grid on;
+legend('show');
