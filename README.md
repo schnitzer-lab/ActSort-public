@@ -34,8 +34,17 @@ Thank you for your interest in ActSort. To receive occasional updates about new 
 ActSort code is written and maintained by the current members of Schnitzerlab. If you have any questions or comments, please open an issue or contact via email `extractneurons@gmail.com`.
 
 ## Citations
-For details of implementation, please see this [paper]([https://www.biorxiv.org/content/10.1101/2024.08.21.609011v1.abstract](https://proceedings.neurips.cc/paper_files/paper/2024/file/90080022263cddafddd4a0726f1fb186-Paper-Conference.pdf))
+For details of implementation, please see [bioRxiv paper](https://www.biorxiv.org/content/10.1101/2024.08.21.609011v1.abstract) [NeurIPS paper](https://proceedings.neurips.cc/paper_files/paper/2024/file/90080022263cddafddd4a0726f1fb186-Paper-Conference.pdf))
 
 Jiang, Y., Akengin, H. O., Zhou, J., Aslihak, M. A., Li, Y., Hernandez, O., ... & Dinc, F., Blanco-Pozo, M., Schnitzer, M. J. (2024). ActSort: An active-learning accelerated cell sorting algorithm for large-scale calcium imaging datasets. bioRxiv, 2024-08. (Published in NeurIPS 2024)
+
+```bibtex
+@inproceedings{jiang2024actsort,
+  title={ActSort: An active-learning accelerated cell sorting algorithm for large-scale calcium imaging datasets},
+  author={Jiang, Y., Akengin, H. O., Zhou, J., Aslihak, M. A., Li, Y., Hernandez, O., ... & Dinc, F., Blanco-Pozo, M., Schnitzer, M. J.},
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2024}
+}
+```
 
 
