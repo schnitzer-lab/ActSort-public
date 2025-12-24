@@ -9,10 +9,6 @@ function [dataset, method] = initialization(features, config, pretrained)
 %   [method] the active learning query method
 
 %% Initialize the dataset and method
-if config.zscore
-    features = cellfun(@(x) zscore(x, 0, 1), features, 'UniformOutput', false);
-end
-
 if isstruct(config)
     if ~isfield(config, "zscore"); config.zscore = true; end
     if ~isfield(config, "n"); config.n = 1; end
@@ -31,6 +27,10 @@ if isstruct(config)
     else
         if ~isfield(config, "balance_pretrained"); config.balance_pretrained = false; end
     end
+end
+
+if config.zscore
+    features = cellfun(@(x) zscore(x, 0, 1), features, 'UniformOutput', false);
 end
 
 if nargin < 3
