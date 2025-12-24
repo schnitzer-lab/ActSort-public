@@ -1,4 +1,4 @@
-function [eval_metrics, dataset, method] = play_active_learning_new(method_name,metrics,choices,choices_gt,ratio,config,pretrained)
+function [eval_metrics, dataset, method] = play_active_learning_new(method_name,features,labels,labels_gt,ratio,config,pretrained)
 % this function run the active learning algorithm on [ratio] on the original
 % cells based using [method]
 % [INPUT]
@@ -33,13 +33,6 @@ function [eval_metrics, dataset, method] = play_active_learning_new(method_name,
 %       - labels_ex      : N x 1 human / expert labels
 %       - labels_ml      : N x 1 cell classifier / ML labels 
 %       - labels_ml_prob : N x 1 ML labels corresponding probablities
-features  = metrics';
-labels    = choices';
-labels_gt = choices_gt';
-% DEFINE NUMBER OF SORTED CELLS
-num_cells = size(metrics,2);
-stop_cell = floor(ratio*num_cells);
-p1percent_cell = floor(0.001*num_cells);
 % UPDATE CONFIG
 config = parse_method_name(method_name, config);
 
@@ -62,33 +55,37 @@ for nexp = 1:config.repeat
     % INITIALIZE EVALUATION METRICS
     eval_metrics = init_eval_metrics();
     % INITIALIZE CELL CLASSIFIER
-    labels_1_indices = find(labels == 1);
-    labels_minus1_indices = find(labels == -1);
-    q_iscells = randsample(labels_1_indices, 3);
-    q_nocells = randsample(labels_minus1_indices, 3);
-    dataset.labels_ex(q_iscells) = labels(q_iscells);
-    dataset.labels_ex(q_nocells) = labels(q_nocells);
-    dataset.q_idx_lst = [dataset.q_idx_lst, q_iscells', q_nocells'];
+    for i=1:dataset.num_datasets
+        labels_1_indices = find(labels{i} == 1);
+        labels_minus1_indices = find(labels{i} == -1);
+        q_iscells = randsample(labels_1_indices, 3);
+        q_nocells = randsample(labels_minus1_indices, 3);
+        dataset.labels_ex{i}(q_iscells) = labels{i}(q_iscells);
+        dataset.labels_ex{i}(q_nocells) = labels{i}(q_nocells);
+        
+        q_idxs_iscells = [i * ones(numel(q_iscells), 1), q_iscells];
+        q_idxs_nocells = [i * ones(numel(q_nocells), 1), q_nocells];
+        dataset.q_idx_lst = [dataset.q_idx_lst; q_idxs_iscells; q_idxs_nocells];
+    end
     if ~(method.continue_sorting)
-        [dataset, method] = train_classifier(dataset,method);
+        [dataset, method] = train_classifier(dataset, method);
     else
-        % align the distribution between dataset and pretrained
-        if config.align
-            dataset_feature_aligned = align_features(pretrained.features, dataset.features);
-            dataset.features = dataset_feature_aligned;
-        end
         [dataset, pretrained, method] = fine_tune(dataset, pretrained, method);
     end
+
+    % DEFINE NUMBER OF SORTED CELLS
+    num_cells = sum(cellfun(@(x) size(x, 1), dataset.features, 'UniformOutput', true));
+    stop_cell = floor(ratio*num_cells);
+    p1percent_cell = floor(0.001*num_cells);
+
     % ACTSORT
     for i=1:stop_cell
         % select next data to be labeled
-        if ~method.continue_sorting
-            [q_idxs, ~, dataset] = step_al(dataset, method);
-        else
-            [q_idxs, ~, dataset] = step_al(dataset, method, pretrained);
-        end
+        [q_idxs, ~, dataset] = step_al(dataset, method);
         % label the data
-        label = labels(q_idxs);
+        data_id = q_idxs(1);
+        cell_id = q_idxs(2);
+        label = labels{data_id}(cell_id);
         % add the label to the training dataset
         dataset = annotate(dataset, q_idxs, label);
         % train the classifier
