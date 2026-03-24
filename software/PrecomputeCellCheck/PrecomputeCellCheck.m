@@ -30,6 +30,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     addParameter(p, 'parallel', true, @islogical);
     addParameter(p, 'dt', 1, @isnumeric);
     addParameter(p, 'fast_features', false, @islogical);
+    addParameter(p, 'algorithm', 1, @isnumeric);  % [new]
     addParameter(p, 'progressDlg', [], @isobject);
     addParameter(p, 'UIFigure', [], @isobject);
 
@@ -42,6 +43,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     progressDlg = p.Results.progressDlg;
     UIFigure = p.Results.UIFigure;
     fast_features = p.Results.fast_features; 
+    algorithm = p.Results.algorithm; % [new]
 
     % Run parallel pool if parallel is on
     if parallel && isempty(gcp('nocreate'))
@@ -85,18 +87,33 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     end
 
     update_progress("Loading H5 File... DONE!", 0.1, progressDlg); %Update progress
+    
 
-    % Load the .mat file
+    %% Format Converter [new]
+
     start_load_mat_file = posixtime(datetime);
 
-    try
-        extract_output = load(matfile_path);
-    catch
-        raise_alert("Invalid Files!",'error', progressDlg, UIFigure);
-        return
+    switch algorithm
+        case 1 % Load the .mat file
+            disp('Loading EXTRACT inputs ...');
+            try
+                extract_output = load(matfile_path);
+            catch
+                raise_alert("Invalid Files!",'error', progressDlg, UIFigure);
+                return
+            end
+
+        case 2
+            disp('Converting CAIMAN inputs ...');
+            extract_output = caiman_converter(matfile_path);
+                        
+        case 3
+            disp('Converting Suite2p inputs ...');
+            % Leaving for Suite2p-to-Extract function
+         
     end
 
-    update_progress("Loading MAT File... DONE!", 0.2, progressDlg); %Update progress
+    update_progress("Loading Data File... DONE!", 0.2, progressDlg); %Update progress
     PRECOMPUTE_TIME_SUMMARY.load_mat_file = posixtime(datetime) - start_load_mat_file;
 
     % Check if cancelled
