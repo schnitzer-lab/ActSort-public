@@ -1,4 +1,4 @@
-function status = CAIMAN_to_EXTRACT_converter(filepath,savepath)
+function output = caiman_converter(filepath)
 % This function used to convert CAIMAN-cnmfe output into the form of EXTRACT output
 % that could be precomputed by ActSort.
 % 
@@ -7,10 +7,8 @@ function status = CAIMAN_to_EXTRACT_converter(filepath,savepath)
 %   [savepath]: A string or char array containing the saving path.
 %
 % OUTPUT:
-%   [status]: Showing the running state.
+%   [output]: A structure containing spatial_weights, temporal_weights, max_im, config, info.
 %
-
-status = false;
 
 %% check 1: file form
 
@@ -99,12 +97,17 @@ output.max_im = max_im;
 output.config = config;
 output.info = info;
 
-save(savepath, 'output', '-v7.3');
+if strlength(filepath) > 0 
+    % 获取 h5 文件所在目录和文件名
+    [path, name, ~] = fileparts(filepath);
 
-status = true;
-fprintf('Done! Converted data saved to %s\n', savepath);
+    % 生成新文件名
+    newFileName = name + "_precomputed.mat";
+    savepath = fullfile(path, newFileName);
 
-
+    save(savepath, 'output', '-v7.3');
+    fprintf('Converted data saved to %s\n', savepath);
+end
 
 end
 
