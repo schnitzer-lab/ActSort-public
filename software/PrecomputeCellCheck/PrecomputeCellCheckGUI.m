@@ -8,10 +8,11 @@ function PrecomputeCellCheckGUI
 
     % State storage
     S.jobQueue = struct('h5', {}, 'mat', {}, 'output', {}, ...
-                        'parallel', {}, 'fast', {}, 'dt', {}, 'status', {});
+                        'parallel', {}, 'fast', {}, 'dt', {}, 'status', {},'algorithm',{});
     S.isRunning = false;
     S.selectedJobIndex = [];
-    
+    S.currentChannel = 1;
+
     % Create main figure
     S.fig = uifigure('Name','PrecomputeCellCheckGUI','Position',[100 100 420 520]);
 
@@ -24,12 +25,12 @@ function PrecomputeCellCheckGUI
     S.AddFilesTab = uitab(S.TabGroup,'Title','Add Files');
     S.GridLayout = uigridlayout(S.AddFilesTab,...
         'ColumnWidth',{'0.25x','1x','1x','1x','1x','1x','0.25x'}, ...
-        'RowHeight',{'1.5x','1.25x','1x','1.25x','1x','1.25x','1x',...
+        'RowHeight',{'1.5x','1.25x','1x','1x','1.25x','1.25x','1x','1.25x','1x',...
                      '0.75x','0.75x','0.75x','1x','1.5x','0.25x'});
 
     % Instructions label
     S.InstructionsLabel = uilabel(S.GridLayout,'Text',...
-        'Add pairs of H5 and .mat files to the queue for precomputation:', ...
+        'Add pairs of movie and data files to the queue for precomputation:', ...
         'FontSize',13,'WordWrap','on');
     S.InstructionsLabel.Layout.Row = 1;
     S.InstructionsLabel.Layout.Column = [2 6];
@@ -44,59 +45,77 @@ function PrecomputeCellCheckGUI
         'ValueChangedFcn',@onH5ValueChanged);
     S.H5FileEditField.Layout.Row = 3;
     S.H5FileEditField.Layout.Column = [2 6];
+    
+    % Choose data form [new]
+    S.ChannelHint = uilabel(S.GridLayout,'Text','Channel Selection','FontSize',13);  
+    S.ChannelHint.Layout.Row = 4;
+    S.ChannelHint.Layout.Column = [2 6];
 
-    % Choose .mat
-    S.ChooseMatfileButton = uibutton(S.GridLayout,'push','Text','Choose .mat file',...
+    S.ChannelGroup = uibuttongroup(S.GridLayout,'BorderType','none');  
+    S.ChannelGroup.Layout.Row = 5;
+    S.ChannelGroup.Layout.Column = [2 6];
+
+    S.Radio1 = uiradiobutton(S.ChannelGroup,'Text','EXTRACT','FontSize',12,'Value',true,'Position',[10 10 100 22]);
+    S.Radio2 = uiradiobutton(S.ChannelGroup,'Text','CAIMAN','FontSize',12,'Value',false,'Position',[120 10 100 22]);
+    S.Radio3 = uiradiobutton(S.ChannelGroup,'Text','Suite2p','FontSize',12,'Value',false,'Position',[230 10 100 22]);
+   
+    S.ChannelGroup.SelectionChangedFcn = @onChannelSelectionChanged;
+    
+    S.ChooseDatafileButton = [];
+    S.DataFileEditField = [];
+
+    S.ChooseDatafileButton = uibutton(S.GridLayout,'push','Text','Choose .mat file',...
         'FontSize',13,'ButtonPushedFcn',@onChooseMat);
-    S.ChooseMatfileButton.Layout.Row = 4;
-    S.ChooseMatfileButton.Layout.Column = [2 6];
-
-    S.MatFileEditField = uieditfield(S.GridLayout,'text','FontSize',13,...
-        'ValueChangedFcn',@onMatValueChanged);
-    S.MatFileEditField.Layout.Row = 5;
-    S.MatFileEditField.Layout.Column = [2 6];
-
+    S.ChooseDatafileButton.Layout.Row = 6;
+    S.ChooseDatafileButton.Layout.Column = [2 6];
+    
+    S.DataFileEditField = uieditfield(S.GridLayout,'text','FontSize',13,...
+        'ValueChangedFcn',@onDataValueChanged);
+    S.DataFileEditField.Layout.Row = 7;
+    S.DataFileEditField.Layout.Column = [2 6];
+    
+   
     % Choose output
     S.ChooseOutputButton = uibutton(S.GridLayout,'push','Text','Choose output destination',...
         'FontSize',13,'Enable','off','ButtonPushedFcn',@onChooseOutput);
-    S.ChooseOutputButton.Layout.Row = 6;
+    S.ChooseOutputButton.Layout.Row = 8;
     S.ChooseOutputButton.Layout.Column = [2 6];
 
     S.OutputPathEditField = uieditfield(S.GridLayout,'text','FontSize',13,...
         'Enable','off');
-    S.OutputPathEditField.Layout.Row = 7;
+    S.OutputPathEditField.Layout.Row = 9;
     S.OutputPathEditField.Layout.Column = [2 6];
 
     % Checkboxes
     S.UseParallelComputationCheckBox = uicheckbox(S.GridLayout,'Text','Use Parallel Computation',...
         'FontSize',13,'Value',true,'Enable','off');
-    S.UseParallelComputationCheckBox.Layout.Row = 8;
+    S.UseParallelComputationCheckBox.Layout.Row = 10;
     S.UseParallelComputationCheckBox.Layout.Column = [2 6];
 
     S.FastFeatureCalculationCheckBox = uicheckbox(S.GridLayout,'Text','Fast Feature Calculation',...
         'FontSize',13,'Value',false,'Enable','off');
-    S.FastFeatureCalculationCheckBox.Layout.Row = 9;
+    S.FastFeatureCalculationCheckBox.Layout.Row = 11;
     S.FastFeatureCalculationCheckBox.Layout.Column = [2 6];
 
     % Downsampling
     S.DownsamplingAmountofTimeLabel = uilabel(S.GridLayout,'Text','Downsampling Amount of Time:',...
         'FontSize',13,'Enable','off','WordWrap','on');
-    S.DownsamplingAmountofTimeLabel.Layout.Row = 10;
+    S.DownsamplingAmountofTimeLabel.Layout.Row = 12;
     S.DownsamplingAmountofTimeLabel.Layout.Column = [2 6];
 
     S.DownsamplingAmountEditField = uieditfield(S.GridLayout,'numeric','FontSize',13,...
         'Value',1,'Enable','off','Limits',[1 Inf]);
-    S.DownsamplingAmountEditField.Layout.Row = 11;
+    S.DownsamplingAmountEditField.Layout.Row = 13;
     S.DownsamplingAmountEditField.Layout.Column = [2 6];
 
     % Add to queue
     S.AddToQueueButton = uibutton(S.GridLayout,'push','Text','+ Add to the queue',...
         'FontSize',13,'Enable','off','ButtonPushedFcn',@onAddToQueue);
-    S.AddToQueueButton.Layout.Row = 12;
+    S.AddToQueueButton.Layout.Row = 14;
     S.AddToQueueButton.Layout.Column = [2 6];
 
     % Temporary paths for current entry
-    S.matFilePath = "";
+    S.dataFilePath = "";
     S.h5FilePath = "";
 
     %------------------------------------------------
@@ -154,14 +173,48 @@ function PrecomputeCellCheckGUI
         tryEnableInputs();
     end
 
-    function onChooseMat(~,~)
+    function onChooseMat(~,~)   % [new]
         [file, path] = uigetfile('*.mat','Select .mat file');
         if isequal(file,0)
             return;
         end
-        S.matFilePath = fullfile(path,file);
-        S.MatFileEditField.Value = S.matFilePath;
+        S.dataFilePath = fullfile(path,file);
+        S.DataFileEditField.Value = S.dataFilePath;
         tryEnableInputs();
+    end
+
+    function onChooseHdf5(~,~)  % [new]
+        [file, path] = uigetfile('*.hdf5','Select .hdf5 file');
+        if isequal(file,0)
+            return;
+        end
+        S.dataFilePath = fullfile(path,file);
+        S.DataFileEditField.Value = S.dataFilePath;
+        tryEnableInputs();
+    end
+    
+    function onChooseNpy(~,~)   % [new]
+        [file, path] = uigetfile('*.npy','Select .npy file');
+        if isequal(file,0)
+            return;
+        end
+        S.dataFilePath = fullfile(path,file);
+        S.DataFileEditField.Value = S.dataFilePath;
+        tryEnableInputs();
+    end
+    
+    function updateDataFileButton()    % [new]
+        switch S.currentChannel
+        case 1   % Extract
+            S.ChooseDatafileButton.Text = 'Choose .mat file';
+            S.ChooseDatafileButton.ButtonPushedFcn = @onChooseMat;
+        case 2   % Caiman
+            S.ChooseDatafileButton.Text = 'Choose .hdf5 file';
+            S.ChooseDatafileButton.ButtonPushedFcn = @onChooseHdf5;
+            case 3   % Suite2p
+            S.ChooseDatafileButton.Text = 'Choose .npy file';
+            S.ChooseDatafileButton.ButtonPushedFcn = @onChooseNpy;
+        end
     end
 
     function onChooseOutput(~,~)
@@ -177,19 +230,42 @@ function PrecomputeCellCheckGUI
         tryEnableInputs();
     end
 
-    function onMatValueChanged(~,~)
-        S.matFilePath = S.MatFileEditField.Value;
+    function onChannelSelectionChanged(~,event)   % [new] 
+        selectedButton = event.NewValue;
+        selectedText = selectedButton.Text;
+
+        switch selectedText
+            case 'EXTRACT'
+                S.currentChannel = 1;
+            case 'CAIMAN'
+                S.currentChannel = 2;
+            case 'Suite2p'
+                S.currentChannel = 3;
+        end
+
+        updateDataFileButton();
+
+        S.dataFilePath = "";
+        S.DataFileEditField.Value = "";
+
+        tryEnableInputs();
+
+    end
+
+    function onDataValueChanged(~,~)
+        S.DataFilePath = S.DataFileEditField.Value;
         tryEnableInputs();
     end
 
     function onAddToQueue(~,~)
         job.h5       = S.h5FilePath;
-        job.mat      = S.matFilePath;
+        job.mat      = S.dataFilePath;
         job.output   = S.OutputPathEditField.Value;
         job.parallel = S.UseParallelComputationCheckBox.Value;
         job.fast     = S.FastFeatureCalculationCheckBox.Value;
         job.dt       = S.DownsamplingAmountEditField.Value;
         job.status   = "Ready";
+        job.algorithm = S.currentChannel;     % [new] save data resource
 
         S.jobQueue(end+1) = job;
         updateJobListDisplay();
@@ -253,7 +329,8 @@ function PrecomputeCellCheckGUI
                     'output_path', job.output, ...
                     'parallel', job.parallel, ...
                     'fast_features', job.fast, ...
-                    'dt', job.dt);
+                    'dt', job.dt, ...
+                    'algorithm', job.algorithm);
                 
                 S.jobQueue(1).status = "Done!";
             catch e
@@ -276,8 +353,8 @@ function PrecomputeCellCheckGUI
     % ------------------
 
     function tryEnableInputs()
-        if strlength(S.matFilePath)>0 && strlength(S.h5FilePath)>0
-            outPath = fullfile(fileparts(S.matFilePath),"precomputed_output.mat");
+        if strlength(S.dataFilePath)>0 && strlength(S.h5FilePath)>0
+            outPath = fullfile(fileparts(S.dataFilePath),"precomputed_output.mat");
             S.OutputPathEditField.Value = outPath;
 
             S.ChooseOutputButton.Enable = 'on';
@@ -291,10 +368,10 @@ function PrecomputeCellCheckGUI
     end
 
     function resetAddFilesTab()
-        S.matFilePath = "";
+        S.dataFilePath = "";
         S.h5FilePath = "";
         S.H5FileEditField.Value = "";
-        S.MatFileEditField.Value = "";
+        S.DataFileEditField.Value = "";
         S.OutputPathEditField.Value = "";
         
         S.ChooseOutputButton.Enable = 'off';
@@ -315,6 +392,7 @@ function PrecomputeCellCheckGUI
             S.JobsListBox.Items = cellstr("(No jobs in the queue)");
             S.JobsListBox.ItemsData = 0;
             S.JobsListBox.Value = 0;
+            S.selectedJobIndex = [];
         else
             items = strings(1, numel(S.jobQueue));
             for k = 1:numel(S.jobQueue)
@@ -322,11 +400,22 @@ function PrecomputeCellCheckGUI
                 [~, matName, matExt] = fileparts(j.mat);
                 [~, h5Name,  h5Ext]  = fileparts(j.h5);
                 [~, outName, outExt] = fileparts(j.output);
+                
+                switch j.algorithm
+                    case 1
+                        algo = 'EXTRACT';
+                    case 2
+                        algo = 'CAIMAN';
+                    case 3
+                        algo = 'Suite2p';
+                    otherwise
+                        algo = 'Unknown';
+                end
 
-                items(k) = sprintf("%s%s\n%s%s\nSave as: %s%s\nParallel: %s, Downsampling: %d, Fast: %s, Status: %s",...
+                items(k) = sprintf("%s%s\n%s%s\nSave as: %s%s\nParallel: %s, Downsampling: %d, Fast: %s, Input type: %s\n Status: %s",...
                     matName, matExt, h5Name, h5Ext, outName, outExt,...
                     ternary(j.parallel,"Yes","No"),...
-                    j.dt, ternary(j.fast,"Yes","No"), j.status);
+                    j.dt, ternary(j.fast,"Yes","No"), algo, j.status);
             end
             S.JobsListBox.Items = cellstr(items);
             S.JobsListBox.ItemsData = 1:numel(S.jobQueue);
