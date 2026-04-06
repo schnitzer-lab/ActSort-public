@@ -1,4 +1,10 @@
 function python_cmd = getPythonCommand()
+% This function helps users select a Python environment.
+% It searches for all valid Python installations that have NumPy installed,
+% then prompts the user to choose one for future computations.\
+%
+% OUTPUT
+% [python_cmd]: user selected python path
 
     python_list = {};
 
