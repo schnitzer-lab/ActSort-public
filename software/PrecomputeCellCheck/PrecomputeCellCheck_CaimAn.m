@@ -1,4 +1,4 @@
-function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
+function PrecomputeCellCheck(hdf5file_path, h5file_path, varargin)
 % This function performs a series of precomputations on cellular data from 
 % a movie and its corresponding matfile. It is designed to facilitate 
 % future calculations and GUI visualizations by preprocessing various 
@@ -7,7 +7,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
 % is too large to fit in memory, reading it in chunks.
 %
 % INPUT
-%   [matfile_path] : A string or char array specifying the path to the .mat file.
+%   [hdf5file_path] : A string or char array specifying the path to the .hdf5 file.
 %   [movie_path] : A string or char array specifying the path to the movie file.
 %   varargin : Variable input arguments including:
 %       - 'parallel': Flag to enable parallel processing. True by default.
@@ -24,17 +24,16 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
 %   
 
     p = inputParser;
-    addRequired(p, 'matfile_path', @(x) (ischar(x) || isstring(x)));
+    addRequired(p, 'hdf5file_path', @(x) (ischar(x) || isstring(x)));
     addRequired(p, 'movie_path', @(x) (ischar(x) || isstring(x)));
     addParameter(p, 'output_path', "", @(x) (ischar(x) || isstring(x)));
     addParameter(p, 'parallel', true, @islogical);
     addParameter(p, 'dt', 1, @isnumeric);
     addParameter(p, 'fast_features', false, @islogical);
-    addParameter(p, 'algorithm', 1, @isnumeric);  % [new]
     addParameter(p, 'progressDlg', [], @isobject);
     addParameter(p, 'UIFigure', [], @isobject);
 
-    parse(p, matfile_path, h5file_path, varargin{:});
+    parse(p, hdf5file_path, h5file_path, varargin{:});
     
     % Parse input arguments
     output_path = p.Results.output_path;
@@ -43,7 +42,6 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     progressDlg = p.Results.progressDlg;
     UIFigure = p.Results.UIFigure;
     fast_features = p.Results.fast_features; 
-    algorithm = p.Results.algorithm; % [new]
 
     % Run parallel pool if parallel is on
     if parallel && isempty(gcp('nocreate'))
@@ -93,18 +91,14 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
 
     start_load_mat_file = posixtime(datetime);
 
-    if algorithm == 1               % Load the .mat file
-        disp('Loading EXTRACT inputs ...');
-        try
-            extract_output = load(matfile_path);
-        catch
-            raise_alert("Invalid Files!",'error', progressDlg, UIFigure);
-            return
-        end
-    else
-        raise_alert("Invalid Channel!",'error', progressDlg, UIFigure);
+    disp('Converting CAIMAN inputs ...');
+    try
+        extract_output = caiman_converter(hdf5file_path);
+    catch
+        raise_alert("Invalid Files!",'error', progressDlg, UIFigure);
         return
     end
+
 
     update_progress("Loading Data File... DONE!", 0.2, progressDlg); %Update progress
     PRECOMPUTE_TIME_SUMMARY.load_mat_file = posixtime(datetime) - start_load_mat_file;
@@ -306,7 +300,7 @@ function PrecomputeCellCheck(matfile_path, h5file_path, varargin)
     INFO = struct;
 
     % Add file info
-    [~,mat_file_name,mat_file_ext] = fileparts(matfile_path);
+    [~,mat_file_name,mat_file_ext] = fileparts(hdf5file_path);
     INFO.mat_file_name = strcat(mat_file_name, mat_file_ext);
     [~,h5_file_name,h5_file_ext] = fileparts(h5file_path);
     INFO.h5_file_name = strcat(h5_file_name, h5_file_ext);
