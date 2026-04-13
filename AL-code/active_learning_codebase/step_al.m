@@ -12,7 +12,7 @@ function [q_idxs, scores, dataset] = step_al(dataset, method)
 %                          indices.
 %       - mdl            : The classifier.
 %   [method] the active learning query method
-%       - name     : query algorithm name ['random', 'cal', 'dal', 'dcal']
+%       - name     : query algorithm name ['random', 'cal', 'dal', 'dcal']       % linear 和 none 咋办？
 %       - weight   : (required only when using dcal)
 %       - n        : number of selected samples by the AL query algorithm.
 %       - continue : if 0 then train from scratch. if 1 then fine-tune.
@@ -67,4 +67,4 @@ switch method_name
         [q_idxs, scores] = strategy_dcal(dataset, n, dataset.mdl, method.weight);
 end
 
-dataset.q_idx_lst = [dataset.q_idx_lst; q_idxs];
+dataset.q_idx_lst = [dataset.q_idx_lst; q_idxs(:)];
